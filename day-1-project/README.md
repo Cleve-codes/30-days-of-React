@@ -10,3 +10,4 @@ Currently, two official plugins are available:
 ## Lessons learnt
 
 - Styling React Apps with Tailwind CSS
+- Managing local state in React with hooks
