@@ -1,17 +1,24 @@
 import { hamburger } from "../assets/icons";
 import { headerLogo } from "../assets/images";
 import { navLinks } from "../constants";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { HiMiniXMark } from "react-icons/hi2";
 
 const Nav = () => {
   const [dropdown, setDropdown] = useState(false);
 
-  function handleDropdown(e) {
+  const handleDropdown = (e) => {
     e.preventDefault();
     setDropdown((isOpen) => !isOpen);
-  }
-  
+  };
+
+  const handleCloseModal = useCallback((e) => {
+    if (e.key === "Escape") {
+      setDropdown(false);
+    }
+    setDropdown(prev => !prev);
+  }, []);
+
   useEffect(() => {
     if (dropdown) {
       document.body.style.overflow = "hidden";
@@ -21,14 +28,9 @@ const Nav = () => {
   }, [dropdown]);
 
   useEffect(function () {
-    const handleCloseModal = (e) => {
-      if (e.key === "Escape") {
-        setDropdown(false);
-      }
-    };
     window.addEventListener("keydown", handleCloseModal);
     return () => window.removeEventListener("keydown", handleCloseModal);
-  });
+  }, [handleCloseModal]);
 
   return (
     <header className="padding-x py-8 absolute z-10 w-full">
@@ -57,19 +59,22 @@ const Nav = () => {
             onClick={handleDropdown}
             style={{ display: dropdown ? "none" : "block" }}
           />
-          {dropdown && <Dropdown />}
+          {dropdown && <Dropdown handleCloseModal={handleCloseModal} />}
         </div>
       </nav>
     </header>
   );
 };
 
-const Dropdown = () => {
+const Dropdown = ({handleCloseModal}) => {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-100">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-100 min-h-full">
       <div className="bg-white flex flex-col items-center rounded-lg w-3/4 h-1/2 overflow-auto">
         <div className="self-end">
-          <HiMiniXMark className="mt-[1em] mr-[1em] text-[30px] flex cursor-pointer" />
+          <HiMiniXMark
+            className="mt-[1em] mr-[1em] text-[30px] flex cursor-pointer"
+            onClick={(e) => handleCloseModal(e)}
+          />
         </div>
 
         <ul className="p-8 space-y-8 mt-[4em]">
