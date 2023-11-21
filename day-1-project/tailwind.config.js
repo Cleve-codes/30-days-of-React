@@ -34,6 +34,10 @@ export default {
       },
       screens: {
         wide: "1440px",
+        tablet: "700px",
+      },
+      zIndex: {
+        "100": "100",
       },
     },
   },

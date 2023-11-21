@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { shoes, statistics } from "../constants";
 import Button from "../components/Button";
@@ -8,6 +8,10 @@ import { arrowRight } from "../assets/icons";
 
 const Hero = () => {
   const [bigShoeImg, setBigShoeImg] = useState(bigShoe1);
+
+  useEffect(() => {
+    console.log("bigShoeImg updated:", bigShoeImg);
+  }, [bigShoeImg]);
 
   return (
     <section
@@ -20,7 +24,7 @@ const Hero = () => {
         </p>
 
         <h1 className="mt-10 font-palanquin text-8xl max-sm:text-[72px] max-sm:leading-[82px] font-bold">
-          <span className="xl:bg-white xl:whitespace-nowrap relative z-10 pr-10">
+          <span className="xl:bg-white xl:whitespace-nowrap relative sm:z-0 md:z-0 lg:z-10 pr-10">
             The New Arrival
           </span>
           <br />
@@ -55,12 +59,12 @@ const Hero = () => {
         />
 
         <div className="flex sm:gap-6 gap-4 absolute -bottom-[5%] sm:left-[10%] max-sm:px-6">
-          {shoes.map((image, index) => (
+          {shoes.map((shoe, index) => (
             <div key={index}>
               <ShoeCard
                 index={index}
-                imgURL={image}
-                changeBigShoeImage={(shoe) => setBigShoeImg(shoe)}
+                imgURL={shoe}
+                changeBigShoeImage={(shoe1) => setBigShoeImg(shoe1)}
                 bigShoeImg={bigShoeImg}
               />
             </div>
