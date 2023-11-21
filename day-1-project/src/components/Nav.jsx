@@ -2,15 +2,16 @@ import { hamburger } from "../assets/icons";
 import { headerLogo } from "../assets/images";
 import { navLinks } from "../constants";
 import { useEffect, useState } from "react";
+import { HiMiniXMark } from "react-icons/hi2";
 
 const Nav = () => {
   const [dropdown, setDropdown] = useState(false);
 
   function handleDropdown(e) {
     e.preventDefault();
-    setDropdown(!dropdown);
+    setDropdown((isOpen) => !isOpen);
   }
-
+  
   useEffect(() => {
     if (dropdown) {
       document.body.style.overflow = "hidden";
@@ -54,6 +55,7 @@ const Nav = () => {
             width={25}
             height={25}
             onClick={handleDropdown}
+            style={{ display: dropdown ? "none" : "block" }}
           />
           {dropdown && <Dropdown />}
         </div>
@@ -65,11 +67,15 @@ const Nav = () => {
 const Dropdown = () => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-100">
-      <div className="bg-white flex justify-center items-center rounded-lg w-3/4 h-1/2 overflow-auto">
-        <ul className="p-8 space-y-8">
+      <div className="bg-white flex flex-col items-center rounded-lg w-3/4 h-1/2 overflow-auto">
+        <div className="self-end">
+          <HiMiniXMark className="mt-[1em] mr-[1em] text-[30px] flex cursor-pointer" />
+        </div>
+
+        <ul className="p-8 space-y-8 mt-[4em]">
           <li>
             <a
-              className="text-2xl  border-b-2 border-transparent hover:border-red-500"
+              className="text-2xl  border-b-4 border-transparent hover:border-red-500"
               href="/"
             >
               Home
@@ -77,7 +83,7 @@ const Dropdown = () => {
           </li>
           <li>
             <a
-              className="text-2xl  border-b-2 border-transparent hover:border-red-500"
+              className="text-2xl  border-b-4 border-transparent hover:border-red-500"
               href="/"
             >
               Products
@@ -85,7 +91,7 @@ const Dropdown = () => {
           </li>
           <li>
             <a
-              className="text-2xl  border-b-2 border-transparent hover:border-red-500"
+              className="text-2xl  border-b-4 border-transparent hover:border-red-500"
               href="/"
             >
               About
@@ -93,7 +99,7 @@ const Dropdown = () => {
           </li>
           <li>
             <a
-              className="text-2xl  border-b-2 border-transparent hover:border-red-500"
+              className="text-2xl  border-b-4 border-transparent hover:border-red-500"
               href="/"
             >
               Contact
