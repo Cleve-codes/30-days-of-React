@@ -10,7 +10,7 @@ export default function Contact() {
 //     notes: "Wagwan people",
 //     favorite: true,
 //   };
-    const { contact } = useLoaderData();
+  const { contact } = useLoaderData();
 
   return (
     <div id="contact">
