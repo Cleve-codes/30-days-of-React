@@ -3,12 +3,12 @@ import * as ReactDom from "react-dom/client";
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
-import Root, {loader as RootLoader, action as RootAction } from "./routes/Root";
+import Root, { loader as RootLoader, action as RootAction } from "./routes/Root";
 import ErrorPage from "./ErrorPage";
-import Contact, {loader as ContactLoader} from "./routes/Contact";
-import Edit, {action as EditAction } from "./routes/Edit";
+import Contact, { loader as ContactLoader } from "./routes/Contact";
+import Edit, { action as EditAction } from "./routes/Edit";
 import Index from "./routes/index";
-import {action as DeleteAction } from "./routes/DeleteContact";
+import { action as DeleteAction } from "./routes/DeleteContact";
 
 const router = createBrowserRouter([
   {
@@ -32,10 +32,10 @@ const router = createBrowserRouter([
         element: <Edit />,
         loader: ContactLoader,
         action: EditAction,
-      },{
+      }, {
         path: "contacts/:contactId/destroy",
         action: DeleteAction,
-        errorElement: <div>Opps! There was an error.</div> 
+        errorElement: <div>Opps! There was an error.</div>
       },
     ]
   },
