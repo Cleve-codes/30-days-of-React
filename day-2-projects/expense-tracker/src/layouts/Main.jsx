@@ -9,6 +9,7 @@ export async function action({ request }) {
   }
 
   console.log(formData)
+  return { formData }
 }
 
 const Main = () => {
