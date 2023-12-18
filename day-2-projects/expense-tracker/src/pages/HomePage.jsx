@@ -1,24 +1,51 @@
-import React from "react"
+import React, { useState } from "react"
 import Logo from '../assets/logomark.svg'
 import ExpenseCard from '../components/ExpenseCard'
-import { useLoaderData } from "react-router-dom";
+import { Form, redirect, useLoaderData } from "react-router-dom";
 import { fetchData } from '../helpers'
 // import { redirect } from "react-router-dom"
+import { FaRegTrashAlt } from "react-icons/fa";
 
 export function Loader() {
   const userName = fetchData("userName")
   return { userName };
 }
 
+export function action() {
+  // delete user 
+
+  // return redirect
+  return redirect('/')
+}
+
 const HomePage = () => {
   const { userName } = useLoaderData()
+  const [isLoggedIn, setIsLoggedIn] = useState(userName.length > 0);
 
 
   return (
-    <div className="w-[90%] h-[90vh] flex flex-col justify-center text-black ml-[12%] mt-[2em]">
-      <div className="flex mt-[7%] flex-row leading-normal items-center justify-start gap-2">
-        <img className="w-10 h-10" src={Logo} alt="Logo" />
-        <h1 className="font-bold text-[25px]">HomeBudget</h1>
+    <div className="container-lg ml-[10%] mt-[2%] flex flex-col text-black ">
+      <div className="flex  flex-row leading-normal items-center justify-between gap-2">
+        <div className="flex flex-row gap-4 items-center">
+          <img className="w-10 h-10" src={Logo} alt="Logo" />
+          <h1 className="font-bold text-[25px]">HomeBudget</h1>
+        </div>
+        {isLoggedIn &&
+          <Form method="post" action="/" className="border-2 border-red-500 mr-[5%]"
+            onSubmit={(e) => {
+              if (!confirm("Delete user and all data?")) {
+                e.preventDefault()
+              }
+            }}
+          >
+            <button type="submit" className="w-[200px] h-[50px] text-black flex flex-row justify-center items-center gap-2">
+              <p className="font-bold text-[20px]" to='/'>
+                Delete User
+              </p>
+              <FaRegTrashAlt className="text-red-500" />
+            </button>
+          </Form>
+        }
       </div>
       <div>
         <h1 className="text-[65px] font-bold mt-[1em] mb-[.5em]">

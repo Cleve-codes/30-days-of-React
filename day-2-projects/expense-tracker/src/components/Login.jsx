@@ -21,7 +21,7 @@ const Login = () => {
         </div>
       </div>
 
-      <button className="bg-button text-buttonTxt w-[350px] h-[2.5em]  rounded-md text-xl font-bold" >
+      <button type="submit" className="bg-button text-buttonTxt w-[350px] h-[2.5em]  rounded-md text-xl font-bold" >
         Sign in
       </button>
       <div className="flex items-center pt-[1rem]">
@@ -42,3 +42,13 @@ const Login = () => {
 }
 
 export default Login;
+
+
+export const Logout = () => {
+  return (
+    <form>
+      <h1>Are you sure you want to leave?</h1>
+      <button>Logout</button>
+    </form>
+  )
+}
