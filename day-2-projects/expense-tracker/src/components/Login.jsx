@@ -1,21 +1,10 @@
 import React from "react"
-import { Form, Link, redirect, } from 'react-router-dom'
+// import { Form } from 'react-router-dom'
 import { FaGithub, FaGoogle, FaTwitter } from "react-icons/fa"
-
-export async function action({ request }) {
-  console.log(request)
-  const data = await request.formData();
-  const formData = {
-    email: data.email,
-    name: data.name,
-  }
-  console.log(formData)
-  return redirect('/home');
-}
 
 const Login = () => {
   return (
-    <Form method="post" action="/" className="shadow-md rounded-xl h-max-[700px] w-max-[510px] mt-[4em] bg-login text-loginTxt flex flex-col items-center">
+    <form className="shadow-md rounded-xl h-max-[700px] w-max-[510px] mt-[4em] bg-login text-loginTxt flex flex-col items-center">
       <h1 className="mt-[3rem] text-[30px] font-bold" >Login</h1>
       <div className="flex flex-col w-full p-[4rem]">
         <label htmlFor='username' id="username">Username</label>
@@ -33,9 +22,7 @@ const Login = () => {
       </div>
 
       <button className="bg-button text-buttonTxt w-[350px] h-[2.5em]  rounded-md text-xl font-bold" >
-        <Link to='/home'>
-          Sign in
-        </Link>
+        Sign in
       </button>
       <div className="flex items-center pt-[1rem]">
         <div className="h-[1em] flex-1 bg-white"></div>
@@ -50,7 +37,7 @@ const Login = () => {
       <div className="mt-[2rem] mb-[2em]">
         <p className="text-socialMsg">Dont have an account? <span className="text-loginTxt">Sign up</span></p>
       </div>
-    </Form>
+    </form>
   )
 }
 
