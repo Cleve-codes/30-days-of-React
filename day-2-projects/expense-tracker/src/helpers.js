@@ -10,6 +10,6 @@ export const createUser = async (name, email) => {
   return user;
 }
 
-export const deleteUser = () => {
-  return null
+export const deleteItem = ({ key }) => {
+  return localStorage.removeItem(key)
 }

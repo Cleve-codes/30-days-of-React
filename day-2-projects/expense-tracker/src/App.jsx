@@ -5,6 +5,10 @@ import Main, { action as logoutAction } from './layouts/Main';
 import HomePage, { Loader as homepageLoader, } from './pages/HomePage'
 import ErrorPage from './pages/ErrorPage'
 
+// React Toastify
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -16,7 +20,6 @@ const router = createBrowserRouter([
     path: '/home',
     element: <HomePage />,
     loader: homepageLoader,
-    action: logoutAction,
     errorElement: <ErrorPage />,
   },
   {
@@ -29,6 +32,7 @@ export default function App() {
   return (
     <div>
       <RouterProvider router={router} />
+      <ToastContainer />
     </div>
   )
 }
