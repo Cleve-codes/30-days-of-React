@@ -10,6 +10,13 @@ export function Loader() {
   return { userName };
 }
 
+export async function action({ request }) {
+  const data = await request.formData();
+  const userName = data.get('userName')
+  console.log(userName)
+  return null
+}
+
 
 const HomePage = () => {
   const { userName } = useLoaderData()

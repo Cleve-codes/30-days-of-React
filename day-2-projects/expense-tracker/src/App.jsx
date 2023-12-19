@@ -2,7 +2,7 @@ import * as React from 'react'
 // import * as ReactDom from 'react-router-dom'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Main, { action as logoutAction } from './layouts/Main';
-import HomePage, { Loader as homepageLoader, } from './pages/HomePage'
+import HomePage, { Loader as homepageLoader, action as addUserAction } from './pages/HomePage'
 import ErrorPage from './pages/ErrorPage'
 
 // React Toastify
@@ -19,6 +19,7 @@ const router = createBrowserRouter([
   {
     path: '/home',
     element: <HomePage />,
+    action: addUserAction,
     loader: homepageLoader,
     errorElement: <ErrorPage />,
   },

@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 export function action() {
   deleteItem({ key: 'userName' })
-  toast.success("Account Deleyed succesfully!")
+  toast.success("Account Deleted succesfully!")
   return redirect('/')
 }
 
