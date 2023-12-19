@@ -1,7 +1,6 @@
 import Button from "./Button"
 
-const BudgetCard = ({ budget }) => {
-  console.log(budget)
+const BudgetCard = () => {
   return (
     <div className="bg-gray-200 rounded-xl w-[650px] h-min-[300px] shadow-xl p-4" >
       <h1 className="font-semibold text-[25px] ml-[2em]">Add New <span>Home</span> Expense</h1>

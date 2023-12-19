@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import ExpenseCard from '../components/ExpenseCard'
-import { Form, redirect, useLoaderData } from "react-router-dom";
+import { Form, redirect, useActionData, useLoaderData } from "react-router-dom";
 import { fetchData } from '../helpers'
 import Nav from "../components/Nav";
 import BudgetCard from "../components/BudgetCard";
@@ -12,8 +12,9 @@ export function Loader() {
 
 export async function action({ request }) {
   const data = await request.formData();
-  const userName = data.get('userName')
-  console.log(userName)
+  const formData = Object.fromEntries(data);
+  localStorage.setItem('userName', JSON.stringify(formData.userName))
+  console.log(formData)
   return null
 }
 
