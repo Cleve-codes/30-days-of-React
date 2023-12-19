@@ -1,6 +1,6 @@
 import ExpenseCard from "../components/ExpenseCard";
 import { useLoaderData } from "react-router-dom";
-import { fetchData } from "../helpers";
+import { createBudget, fetchData } from "../helpers";
 import Nav from "../components/Nav";
 import BudgetCard from "../components/BudgetCard";
 import { toast } from "react-toastify";
@@ -24,13 +24,19 @@ export async function action({ request }) {
       throw new Error("There was a problem creating your account");
     }
   }
-}
 
-export async function addBudgetAction({ request }) {
-  const data = await request.formData();
-  const formData = Object.fromEntries(data);
-  console.log(formData, request);
-  return null;
+  if (_action === "addBudget") {
+    console.log(values.expense);
+    try {
+      createBudget({
+        name: values.expense,
+        amount: values.expenseAmount,
+      })
+      return toast.success(`Budget created succesfully`);
+    } catch (error) {
+      throw new Error("There was a problem creating your budget");
+    }
+  }
 }
 
 const HomePage = () => {

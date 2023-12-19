@@ -1,4 +1,3 @@
-import React from "react";
 import { Form } from "react-router-dom";
 import { FaGithub, FaGoogle, FaTwitter } from "react-icons/fa";
 import { HiUserPlus } from "react-icons/hi2";
