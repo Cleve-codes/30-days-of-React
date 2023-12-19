@@ -15,13 +15,21 @@ const BudgetCard = ({ budget }) => {
           <input className="rounded-sm outline-button px-8 py-4" type="number" placeholder="Enter Amount"></input>
         </div>
       </div>
-      <div className="ml-[2em] mt-[2em]">
+      <div className="ml-[3em] mt-[2em]">
+        <h1 className="font-semibold text-[20px] text-gray-700">Budget Category</h1>
+        <select className="min-w-[95%] px-8 py-4 bg-white mr-[2em] outline-button">
+          <option>Home</option>
+          <option>School</option>
+        </select>
+      </div>
+      <div className="ml-[3em] mt-[2em]">
         <Button text="Add expense" />
       </div>
+
+
     </div>
 
   )
 }
 
 export default BudgetCard
-

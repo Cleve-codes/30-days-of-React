@@ -16,20 +16,27 @@ const HomePage = () => {
   const [budget, setBudget] = useState('')
 
   return (
-    <div className="container-lg ml-[10%] mt-[2%] flex flex-col text-black ">
-      <Nav userName={userName} />
-      <div>
-        <h1 className="text-[65px] font-bold mt-[1em] mb-[.5em]">
-          Welcome back, <span>{userName}</span>
-        </h1>
-        <p className="text-[26px] leading-[1em]">Personal budgeting is the secret to financial freedom.</p>
-        <p className="text-[26px] leading-[3em]">Create a bugdet to get started</p>
+    <main className="home">
+      <div className="container-lg  flex flex-col text-black ml-[20%] mt-[2em]">
+        <Nav userName={userName} />
+        <div>
+          <h1 className="text-[65px] font-bold mt-[.5em]" >
+            Welcome back, <span>{userName}</span>
+          </h1>
+          {
+            !userName && (
+              <>
+                <p className="text-[26px] leading-[1em]">Personal budgeting is the secret to financial freedom.</p>
+                <p className="text-[26px] leading-[3em]">Create a bugdet to get started</p>
+              </>)
+          }
+        </div>
+        <div className="flex-1 mt-[2em] mr-[15%] grid grid-cols-2 grid-rows-2">
+          <ExpenseCard />
+          <BudgetCard />
+        </div>
       </div>
-      <div className="flex-1 mt-[2em] mr-[15%] grid grid-cols-2 grid-rows-2">
-        <ExpenseCard />
-        <BudgetCard />
-      </div>
-    </div>
+    </main>
   )
 }
 
