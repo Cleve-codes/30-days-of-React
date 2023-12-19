@@ -35,7 +35,6 @@ const ExpenseCard = () => {
           inputMode="decimal"
           required
         ></input>
-        <input type="hidden" name="_action" value="newUser" ></input>
       </div>
       <div className="ml-[2em] mt-[2em]">
         <Button text="Create Budget 🪙" onClick={addBudget} />
