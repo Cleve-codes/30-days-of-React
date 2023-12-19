@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from "./Button";
+import { Form } from "react-router-dom";
 // import BudgetCard from "./BudgetCard";
 
 const ExpenseCard = () => {
@@ -22,7 +23,7 @@ const ExpenseCard = () => {
 
 
   return (
-    <div className="bg-gray-200 rounded-xl w-[650px] h-min-[300px] shadow-xl p-4" >
+    <Form method="post" action="/home/expense" className="bg-gray-300 rounded-xl w-[650px] h-min-[300px] shadow-2xl p-4" >
       <h1 className="font-semibold text-[25px] ml-[2em]">Create a budget</h1>
       <div className="flex flex-col ml-[2em] mt-[2em] gap-[.5em] " >
         <label className="font-semibold text-[20px] text-gray-700" htmlFor="name">Budget Name</label>
@@ -39,7 +40,7 @@ const ExpenseCard = () => {
       {/* budget.length > 0 && */}
       {/* <BudgetCard budget={budget} /> */}
       {/* } */}
-    </div>
+    </Form>
   )
 }
 
