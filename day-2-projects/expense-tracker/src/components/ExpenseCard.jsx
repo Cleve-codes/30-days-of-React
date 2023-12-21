@@ -4,9 +4,9 @@ import { Form } from "react-router-dom";
 
 const ExpenseCard = () => {
   return (
-    <form
-      // method="post"
-      // action="/home/expense"
+    <Form
+      method="post"
+      action="/home"
       className="bg-gray-300 rounded-xl w-[650px] h-min-[300px] shadow-2xl p-4"
     >
       <h1 className="font-semibold text-[25px] ml-[2em]">Create a budget</h1>
@@ -40,6 +40,7 @@ const ExpenseCard = () => {
           inputMode="decimal"
           required
         ></input>
+        <input type="hidden" name="_action" value="addBudget" />
       </div>
       <div className="ml-[2em] mt-[2em]">
         <Button text="Create Budget 🪙" />
@@ -48,7 +49,7 @@ const ExpenseCard = () => {
       {/* budget.length > 0 && */}
       {/* <BudgetCard budget={budget} /> */}
       {/* } */}
-    </form>
+    </Form>
   );
 };
 

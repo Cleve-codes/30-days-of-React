@@ -16,17 +16,17 @@ export async function action({ request }) {
   const { _action, ...values } = Object.fromEntries(data);
   console.log(_action);
 
-  // if (_action === "newUser") {
-  //   try {
-  //     localStorage.setItem("userName", JSON.stringify(values.userName));
-  //     return toast.success(`Welcome ${values.userName}`);
-  //   } catch (error) {
-  //     throw new Error("There was a problem creating your account");
-  //   }
-  // }
+  if (_action === "newUser") {
+    try {
+      localStorage.setItem("userName", JSON.stringify(values.userName));
+      return toast.success(`Welcome ${values.userName}`);
+    } catch (error) {
+      throw new Error("There was a problem creating your account");
+    }
+  }
 
   if (_action === "addBudget") {
-    console.log(values.expense);
+    console.log(_action)
     try {
        createBudget({
         name: values.expense,
