@@ -1,6 +1,11 @@
 export const fetchData = (key) => {
-   const data = localStorage.getItem(key)
-   return data? JSON.parse(data) : null;
+  const data = localStorage.getItem(key)
+  return data ? JSON.parse(data) : null;
+}
+
+export const generateRandomColor = () => {
+  const existingBudgetsLength = localStorage.getItem('budgets')?.length ?? 0;
+  return `${existingBudgetsLength * 34} 65% 50%`
 }
 
 export const createUser = async (name, email) => {
@@ -19,12 +24,12 @@ export const createBudget = ({
     name: name,
     createAt: Date.now(),
     amount: +amount,
-    // color
+    color: generateRandomColor(),
   }
   const existingBudgets = fetchData('budgets') ?? [];
   return localStorage.setItem('budgets', JSON.stringify([...existingBudgets, newItem]))
 }
 
-export const deleteItem = ({key}) => {
+export const deleteItem = ({ key }) => {
   return localStorage.removeItem(key);
 }

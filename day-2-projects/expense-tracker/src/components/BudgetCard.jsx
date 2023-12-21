@@ -3,7 +3,7 @@ import Button from "./Button";
 
 const BudgetCard = () => {
 
-  const {budgets} = useLoaderData()
+  const { budgets } = useLoaderData()
   console.log(budgets)
 
   return (
@@ -11,7 +11,7 @@ const BudgetCard = () => {
       <Form
         method="post"
         action="/home/expense"
-        className=" bg-gray-200 rounded-xl w-[650px] h-min-[300px] shadow-xl p-4"
+        className=" bg-gray-200 rounded-xl w-max-[650px] h-min-[300px] shadow-xl p-4"
       >
         <h1 className="font-semibold text-[25px] ml-[2em]">
           Add New <span>{budgets[0].name}</span> Expense

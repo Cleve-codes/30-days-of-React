@@ -1,14 +1,27 @@
+import { useEffect, useRef } from "react";
 import Button from "./Button";
-import { Form } from "react-router-dom";
+import { Form, useFetcher } from "react-router-dom";
 // import BudgetCard from "./BudgetCard";
 
 const ExpenseCard = () => {
+  const fetcher = useFetcher();
+  const isSubmitting = fetcher.state === "submitting";
+
+  const formRef = useRef();
+
+  useEffect(() => {
+    if (!isSubmitting) {
+      formRef.current.reset();
+    }
+  }, [isSubmitting]);
+
   return (
     <div className="form-wrapper">
-      <Form
+      <fetcher.Form
         method="post"
         action="/home"
-        className="bg-gray-300 rounded-xl w-[650px] h-min-[300px] shadow-2xl p-4"
+        ref={formRef}
+        className="bg-gray-300 rounded-xl w-max-[650px] h-min-[300px] shadow-2xl p-4"
       >
         <h1 className="font-semibold text-[25px] ml-[2em]">Create a budget</h1>
         <div className="flex flex-col ml-[2em] mt-[2em] gap-[.5em] ">
@@ -54,7 +67,7 @@ const ExpenseCard = () => {
         {/* budget.length > 0 && */}
         {/* <BudgetCard budget={budget} /> */}
         {/* } */}
-      </Form>
+      </fetcher.Form>
     </div>
   );
 };
