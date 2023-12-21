@@ -1,5 +1,6 @@
 export const fetchData = (key) => {
-  return JSON.parse(localStorage.getItem(key))
+   const data = localStorage.getItem(key)
+   return data? JSON.parse(data) : null;
 }
 
 export const createUser = async (name, email) => {
@@ -24,6 +25,6 @@ export const createBudget = ({
   return localStorage.setItem('budgets', JSON.stringify([...existingBudgets, newItem]))
 }
 
-export const deleteItem = () => {
-  return null;
+export const deleteItem = ({key}) => {
+  return localStorage.removeItem(key);
 }

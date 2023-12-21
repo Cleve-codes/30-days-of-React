@@ -1,40 +1,43 @@
 // import * as ReactDom from 'react-router-dom'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Main, { action as logoutAction } from './layouts/Main';
-import HomePage, { Loader as homepageLoader, action as addUserAction } from './pages/HomePage'
-import ErrorPage from './pages/ErrorPage'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Main, { action } from "./layouts/Main";
+import HomePage, {
+  Loader as homepageLoader,
+  action as homePageAction,
+} from "./pages/HomePage";
+import ErrorPage from "./pages/ErrorPage";
 
 // React Toastify
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import BudgetCard from './components/BudgetCard';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// import BudgetCard from "./components/BudgetCard";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Main />,
-    action: logoutAction,
+    action: action,
     errorElement: <ErrorPage />,
   },
   {
-    path: '/home',
+    path: "/home",
     element: <HomePage />,
-    action: addUserAction,
+    action: homePageAction,
     loader: homepageLoader,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: 'expense',
-        action: addUserAction,
-        element: <BudgetCard />
-      }
-    ]
+        path: "expense",
+        action: homePageAction,
+        // element: <BudgetCard />,
+      },
+    ],
   },
   {
-    path: '*',
-    element: <ErrorPage />
-  }
-])
+    path: "*",
+    element: <ErrorPage />,
+  },
+]);
 
 export default function App() {
   return (
@@ -42,5 +45,5 @@ export default function App() {
       <RouterProvider router={router} />
       <ToastContainer />
     </div>
-  )
+  );
 }

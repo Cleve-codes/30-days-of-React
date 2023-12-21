@@ -5,10 +5,9 @@ import { HiUserPlus } from "react-icons/hi2";
 const Login = () => {
   return (
     <Form
-      method="post"
-      action="/home"
-      className="shadow-md rounded-xl h-max-[700px] w-max-[510px] mt-[4em] bg-login text-loginTxt flex flex-col items-center"
-    >
+    method="post"
+    action="/"
+     className="shadow-md rounded-xl h-max-[700px] w-max-[510px] mt-[4em] bg-login text-loginTxt flex flex-col items-center">
       <h1 className="mt-[3rem] text-[30px] font-bold">Create Account</h1>
       <div className="flex flex-col w-full p-[4rem]">
         <label htmlFor="username" id="username">
