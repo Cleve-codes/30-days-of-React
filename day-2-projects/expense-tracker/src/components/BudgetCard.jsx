@@ -52,8 +52,11 @@ const BudgetCard = () => {
               Budget Category
             </h1>
             <select className="min-w-[95%] px-8 py-4 bg-white mr-[2em] outline-button">
-              <option>Home</option>
-              <option>School</option>
+              {/* <option>Home</option>
+              <option>School</option> */}
+              {budgets.map((budget) => (
+                <option key={budget.name}>{budget.name}</option>
+              ))}
             </select>
           </div>
         )}
