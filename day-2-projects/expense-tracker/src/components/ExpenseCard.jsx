@@ -66,7 +66,7 @@ const ExpenseCard = () => {
           <input type="hidden" name="_action" value="addBudget" />
         </div>
         <div className="ml-[2em] mt-[2em]">
-          <Button text='Create Budget' />
+          <Button text='Create Budget 🪙' disabled={isSubmitting} />
         </div>
         {/* { */}
         {/* budget.length > 0 && */}
