@@ -1,6 +1,6 @@
 import ExpenseCard from "../components/ExpenseCard";
 import { useLoaderData } from "react-router-dom";
-import { createBudget, fetchData } from "../helpers";
+import { createBudget, fetchData, wait } from "../helpers";
 import Nav from "../components/Nav";
 import BudgetCard from "../components/BudgetCard";
 import { toast } from "react-toastify";
@@ -28,6 +28,7 @@ export async function action({ request }) {
 
   if (_action === "addBudget") {
     console.log(_action);
+    await wait();
     try {
       createBudget({
         name: values.expense,

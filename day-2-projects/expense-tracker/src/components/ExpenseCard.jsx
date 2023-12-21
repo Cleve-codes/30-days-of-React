@@ -1,17 +1,21 @@
 import { useEffect, useRef } from "react";
 import Button from "./Button";
-import { Form, useFetcher } from "react-router-dom";
+import { useFetcher } from "react-router-dom";
 // import BudgetCard from "./BudgetCard";
+
+
 
 const ExpenseCard = () => {
   const fetcher = useFetcher();
   const isSubmitting = fetcher.state === "submitting";
 
   const formRef = useRef();
+  const focusRef = useRef();
 
   useEffect(() => {
     if (!isSubmitting) {
       formRef.current.reset();
+      focusRef.current.focus();
     }
   }, [isSubmitting]);
 
@@ -37,6 +41,7 @@ const ExpenseCard = () => {
             type="text"
             name="expense"
             autoComplete="on"
+            ref={focusRef}
             placeholder="e.g Groceries"
           ></input>
         </div>
@@ -61,7 +66,7 @@ const ExpenseCard = () => {
           <input type="hidden" name="_action" value="addBudget" />
         </div>
         <div className="ml-[2em] mt-[2em]">
-          <Button text="Create Budget 🪙" />
+          <Button text='Create Budget' />
         </div>
         {/* { */}
         {/* budget.length > 0 && */}

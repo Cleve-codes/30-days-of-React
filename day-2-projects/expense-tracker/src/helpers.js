@@ -3,6 +3,10 @@ export const fetchData = (key) => {
   return data ? JSON.parse(data) : null;
 }
 
+export const wait = () => new Promise(res => setTimeout(
+  res, Math.random() * 2000
+))
+
 export const generateRandomColor = () => {
   const existingBudgetsLength = localStorage.getItem('budgets')?.length ?? 0;
   return `${existingBudgetsLength * 34} 65% 50%`
