@@ -7,7 +7,7 @@ const Button = ({ text, to, onClick, disabled }) => {
     rounded-2xl hover:bg-opacity-70 
     transition font-semibold shadow-md" onClick={onClick} disabled={disabled} >
       <Link to={to}>
-        {disabled ? 'Creating Budget' : text}
+        {disabled ? 'Submitting...' : text}
       </Link>
     </button>
   )

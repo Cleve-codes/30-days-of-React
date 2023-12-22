@@ -1,9 +1,10 @@
-import ExpenseCard from "../components/ExpenseCard";
-import { useLoaderData } from "react-router-dom";
-import { createBudget, fetchData, wait } from "../helpers";
+// import ExpenseCard from "../components/ExpenseCard";
+import { Outlet, useLoaderData } from "react-router-dom";
+import { createBudget, createExpense, fetchData, wait } from "../helpers";
 import Nav from "../components/Nav";
-import BudgetCard from "../components/BudgetCard";
+// import BudgetCard from "../components/BudgetCard";
 import { toast } from "react-toastify";
+// import BudgetItem from "../components/BudgetItem";
 
 export function Loader() {
   const userName = fetchData("userName");
@@ -39,6 +40,21 @@ export async function action({ request }) {
       throw new Error("There was a problem creating your budget");
     }
   }
+
+  if (_action === "addExpense") {
+    console.log(_action);
+    await wait();
+    try {
+      createExpense({
+        name: values.expense,
+        amount: values.expenseAmount,
+        budgetId: values.newExpenseBudget,
+      });
+      return toast.success(`${values.expense} added as an expense`);
+    } catch (error) {
+      throw new Error("There was a problem creating your budget");
+    }
+  }
 }
 
 const HomePage = () => {
@@ -47,27 +63,9 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="container-lg  flex flex-col text-black ml-[20%] mt-[2em]">
+      <div className="min-h-screen  flex flex-col text-black ml-[20%] mt-[2em]">
         <Nav userName={userName} />
-        <div>
-          <h1 className="text-[55px] font-bold mt-[.5em]">
-            Welcome back, <span>{userName}</span>
-          </h1>
-          {budgets.length === 0 && (
-            <div className="mt-[1.5em]">
-              <p className="text-[22px] leading-[.5em]">
-                Personal budgeting is the secret to financial freedom.
-              </p>
-              <p className="text-[22px] leading-[3em]">
-                Create a bugdet to get started
-              </p>
-            </div>
-          )}
-        </div>
-        <div className="flex-1 mt-[2em] mr-[15%] grid grid-cols-2 grid-rows-2 gap-[2.5em]">
-          <ExpenseCard />
-          {budgets?.length > 0 && <BudgetCard />}
-        </div>
+        <Outlet />
       </div>
       <div className="home"></div>
     </>

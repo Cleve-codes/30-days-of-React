@@ -10,6 +10,7 @@ import ErrorPage from "./pages/ErrorPage";
 // React Toastify
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import IndexRoute from "./pages/IndexRoute";
 // import BudgetCard from "./components/BudgetCard";
 
 const router = createBrowserRouter([
@@ -27,8 +28,10 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "expense",
+        index: true,
+        element: <IndexRoute />,
         action: homePageAction,
+        loader: homepageLoader,
         // element: <BudgetCard />,
       },
     ],
