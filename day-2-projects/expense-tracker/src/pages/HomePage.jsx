@@ -63,7 +63,7 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="min-h-screen  flex flex-col text-black ml-[20%] mt-[2em]">
+      <div className="min-h-screen  flex flex-col text-black ml-[15%] mt-[2em] mr-[5%]">
         <Nav userName={userName} />
         <Outlet />
       </div>

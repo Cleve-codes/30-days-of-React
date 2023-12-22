@@ -1,13 +1,14 @@
 import { useEffect, useRef } from "react";
 import Button from "./Button";
-import { useFetcher } from "react-router-dom";
+import { Link, useFetcher } from "react-router-dom";
 // import BudgetCard from "./BudgetCard";
-
-
 
 const ExpenseCard = () => {
   const fetcher = useFetcher();
   const isSubmitting = fetcher.state === "submitting";
+  
+  const budgetsPresent = localStorage.getItem("budgets").length > 2;
+  console.log(budgetsPresent);
 
   const formRef = useRef();
   const focusRef = useRef();
@@ -43,6 +44,7 @@ const ExpenseCard = () => {
             autoComplete="on"
             ref={focusRef}
             placeholder="e.g Groceries"
+            required
           ></input>
         </div>
         <div className="flex flex-col ml-[2em] gap-[.5em]">
@@ -65,8 +67,24 @@ const ExpenseCard = () => {
           ></input>
           <input type="hidden" name="_action" value="addBudget" />
         </div>
-        <div className="ml-[2em] mt-[2em]">
-          <Button text='Create Budget 🪙' disabled={isSubmitting} />
+        <div className="flex gap-8">
+          <div className="ml-[2em] mt-[2em]">
+            <Button text="Create Budget 🪙" disabled={isSubmitting} />
+          </div>
+
+          {budgetsPresent && (
+            <div className="mt-[2em]">
+              <Link
+                className="cursor-pointer group relative flex gap-1.5 
+    px-8 py-4 bg-black bg-opacity-80 text-[#f1f1f1] 
+    rounded-2xl hover:bg-opacity-70 
+    transition font-semibold shadow-md"
+                to="/home/budgets"
+              >
+                View Existing Budgets
+              </Link>
+            </div>
+          )}
         </div>
         {/* { */}
         {/* budget.length > 0 && */}

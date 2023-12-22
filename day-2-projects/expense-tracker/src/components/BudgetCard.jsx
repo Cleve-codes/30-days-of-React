@@ -1,4 +1,4 @@
-import { Form, useFetcher, useLoaderData } from "react-router-dom";
+import { useFetcher, useLoaderData } from "react-router-dom";
 import Button from "./Button";
 import { useEffect, useRef, useState } from "react";
 
@@ -28,7 +28,7 @@ const BudgetCard = () => {
     <div className="form-wrapper">
       <fetcher.Form
         method="post"
-        action="/home/expense"
+        action="/home"
         ref={formRef}
         className=" bg-gray-200 rounded-xl w-max-[650px] h-min-[300px] shadow-xl p-4"
       >
