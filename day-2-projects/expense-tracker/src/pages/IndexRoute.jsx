@@ -1,7 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import ExpenseCard from "../components/ExpenseCard";
 import BudgetCard from "../components/BudgetCard";
-import Button from "../components/Button";
 
 const IndexRoute = () => {
   const { userName, budgets } = useLoaderData();

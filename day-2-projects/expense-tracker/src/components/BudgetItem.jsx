@@ -1,9 +1,11 @@
-import { formatCurrency, totalSpent } from "../helpers";
+import { formatCurrency, formatPercentage, totalSpent } from "../helpers";
+import PropTypes from "prop-types";
 
 const BudgetItem = ({ budget }) => {
   const { id, name, amount, color } = budget;
+  console.log(budget)
   const spent = totalSpent(id);
-  const remaining = amount - spent;
+  console.log(spent)
 
   return (
     <div className="budget">
@@ -11,15 +13,20 @@ const BudgetItem = ({ budget }) => {
         <h3>{name}</h3>
         <p>{formatCurrency(amount)} Budgeted</p>
       </div>
-      <progress max={amount} value="100">
+      <progress max={amount} value={spent}>
         {/* Percentage */}
+        {formatPercentage(spent/amount)}
       </progress>
       <div className="progress-text">
         <small>{formatCurrency(spent)} spent</small>
-        <small>{formatCurrency(remaining)} remaining</small>
+        <small>{formatCurrency(amount - spent)} remaining</small>
       </div>
     </div>
   );
+};
+
+BudgetItem.propTypes = {
+  budget: PropTypes.object.isRequired,
 };
 
 export default BudgetItem;

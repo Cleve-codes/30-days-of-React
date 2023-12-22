@@ -24,6 +24,7 @@ export async function action({ request }) {
     try {
       deleteItem("userName");
       deleteItem("budgets");
+      deleteItem("expenses");
       return redirect("/");
     } catch (error) {
       throw new Error("There was a problem deleting your account");

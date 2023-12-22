@@ -43,11 +43,24 @@ export const createExpense = ({ name, amount, budgetId }) => {
     budgetId: budgetId,
   };
 
-  const existingExpenses = fetchData("expenses") ?? [];
-  return localStorage.setItem(
-    "expenses",
-    JSON.stringify([...existingExpenses, newExpense])
-  );
+  // const existingExpenses = fetchData("expenses") ?? [];
+  // const updatedExpenses = [...existingExpenses, newExpense];
+  // localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+
+  const existingBudgets = fetchData("budgets") ?? [];
+  const updatedBudgets = existingBudgets.map((budget) => {
+    if (budget.id === budgetId) {
+      return {
+        ...budget,
+        expenses: [...(budget.expenses || []), newExpense.id],
+      };
+    }
+    return budget;
+  });
+
+  // Link the expense to the corresponding budget
+
+  localStorage.setItem("budgets", JSON.stringify(updatedBudgets));
 };
 
 // Total spent by budget
@@ -60,19 +73,25 @@ export const totalSpent = (budgetId) => {
     return acc;
   }, 0);
   return budgetSpent;
-}
+};
 
 export const deleteItem = ({ key }) => {
   return localStorage.removeItem(key);
 };
 
-// FORMATTING
-
+// FORMATTING FUNCTIONS
 // Format currency
-
 export const formatCurrency = (amount) => {
   return new Intl.NumberFormat(undefined, {
     style: "currency",
     currency: "USD",
+  }).format(amount);
+};
+
+// Format Percentage
+export const formatPercentage = (amount) => {
+  return new Intl.NumberFormat(undefined, {
+    style: "percent",
+    maximumFractionDigits: 2,
   }).format(amount);
 };

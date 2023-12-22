@@ -31,7 +31,7 @@ export async function action({ request }) {
     console.log(_action);
     await wait();
     try {
-      createBudget({
+      await createBudget({
         name: values.expense,
         amount: values.expenseAmount,
       });
@@ -45,10 +45,10 @@ export async function action({ request }) {
     console.log(_action);
     await wait();
     try {
-      createExpense({
+      await createExpense({
         name: values.expense,
         amount: values.expenseAmount,
-        budgetId: values.newExpenseBudget,
+        budgetId: values.newExpense,
       });
       return toast.success(`${values.expense} added as an expense`);
     } catch (error) {

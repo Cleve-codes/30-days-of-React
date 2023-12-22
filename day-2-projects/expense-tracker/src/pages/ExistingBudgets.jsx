@@ -10,7 +10,7 @@ const ExistingBudgets = () => {
   return (
     <section className="mt-[3%]">
       <h1 className="text-[50px] mb-4">
-        <span className="text-[55px] font-semibold">{userName}'s</span> Existing
+        <span className="text-[55px] font-semibold">{userName}&apos;s</span> Existing
         Budgets
       </h1>
       <div className="budgets">

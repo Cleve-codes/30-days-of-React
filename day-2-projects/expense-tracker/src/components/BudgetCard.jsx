@@ -29,6 +29,8 @@ const BudgetCard = () => {
       <fetcher.Form
         method="post"
         action="/home"
+        name="newExpense"
+        id="newExpense"
         ref={formRef}
         className=" bg-gray-200 rounded-xl w-max-[650px] h-min-[300px] shadow-xl p-4"
       >
