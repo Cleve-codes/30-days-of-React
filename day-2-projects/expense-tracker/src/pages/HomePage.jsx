@@ -48,8 +48,9 @@ export async function action({ request }) {
       await createExpense({
         name: values.expense,
         amount: values.expenseAmount,
-        budgetId: values.newExpense,
+        budgetId: values.budgetId,
       });
+      console.log(values);
       return toast.success(`${values.expense} added as an expense`);
     } catch (error) {
       throw new Error("There was a problem creating your budget");

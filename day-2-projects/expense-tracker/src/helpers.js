@@ -52,11 +52,21 @@ export const createExpense = ({ name, amount, budgetId }) => {
     if (budget.id === budgetId) {
       return {
         ...budget,
-        expenses: [...(budget.expenses || []), newExpense.id],
+        expenses: [
+          ...(budget.expenses || []),
+          {
+            id: newExpense.id,
+            name: newExpense.name,
+            amount: newExpense.amount,
+          },
+        ],
       };
     }
     return budget;
   });
+
+  
+
 
   // Link the expense to the corresponding budget
 
