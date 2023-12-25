@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 export async function action({ request }) {
   const data = await request.formData();
   const { _action, ...values } = Object.fromEntries(data.entries());
-  console.log(_action);
 
   if (_action === "newUser") {
     try {

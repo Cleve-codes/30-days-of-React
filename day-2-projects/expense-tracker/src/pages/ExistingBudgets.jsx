@@ -1,10 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import BudgetItem from "../components/BudgetItem";
 import { MdArrowBack } from "react-icons/md";
 
-const ExistingBudgets = () => {
-  const budgets = JSON.parse(localStorage.getItem("budgets"));
+export async function loader() {
   const userName = JSON.parse(localStorage.getItem("userName"));
+  const budgets = JSON.parse(localStorage.getItem("budgets"));
+  return { userName, budgets };
+}
+
+const ExistingBudgets = () => {
+  const { userName, budgets } = useLoaderData();
   const navigate = useNavigate();
 
   return (

@@ -15,7 +15,6 @@ export function Loader() {
 export async function action({ request }) {
   const data = await request.formData();
   const { _action, ...values } = Object.fromEntries(data);
-  console.log(_action);
 
   if (_action === "newUser") {
     try {
@@ -28,14 +27,12 @@ export async function action({ request }) {
   }
 
   if (_action === "addBudget") {
-    console.log(_action);
     await wait();
     try {
       createBudget({
         name: values.budget,
         amount: values.budgetAmount,
       });
-      console.log(values);
       return toast.success(`Budget created succesfully`);
     } catch (error) {
       throw new Error("There was a problem creating your budget");
@@ -43,7 +40,6 @@ export async function action({ request }) {
   }
 
   if (_action === "addExpense") {
-    console.log(_action);
     await wait();
     try {
       createExpense({
@@ -51,7 +47,6 @@ export async function action({ request }) {
         amount: values.expenseAmount,
         budgetId: values.budgetId,
       });
-      console.log(values);
       return toast.success(`${values.expense} added as an expense`);
     } catch (error) {
       throw new Error("There was a problem creating your budget");
@@ -61,7 +56,6 @@ export async function action({ request }) {
 
 const HomePage = () => {
   const { userName, budgets } = useLoaderData();
-  console.log(userName, budgets);
 
   return (
     <>

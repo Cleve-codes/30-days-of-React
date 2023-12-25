@@ -50,22 +50,24 @@ export const createExpense = ({ name, amount, budgetId }) => {
   if (budgetExists) {
     existingExpenses.push(newExpense);
     localStorage.setItem("expenses", JSON.stringify(existingExpenses));
-  } else {
-    console.log("Budget does not exist");
   }
 };
 
 // Total spent by budget
-export const totalSpent = (budgetId) => {
-  const expenses = fetchData("expenses") ?? [];
-  const budgetSpent = expenses.reduce((acc, expense) => {
-    if (expense.budgetId === budgetId) {
-      return acc + expense.amount;
-    }
-    return acc;
-  }, 0);
-  return budgetSpent;
+export const getExpensesByBudget = (budgetId) => {
+  const existingExpenses = fetchData("expenses") ?? [];
+  const expenses = existingExpenses.filter(
+    (expense) => expense.budgetId === budgetId
+  );
+  return expenses;
 };
+
+// Total spent by budget
+export const getTotalExpensesByBudget = (budgetId) => {
+  const expenses = getExpensesByBudget(budgetId);
+  return expenses.reduce((acc, expense) => acc + expense.amount, 0);
+};
+
 
 export const deleteItem = ({ key }) => {
   return localStorage.removeItem(key);

@@ -12,10 +12,7 @@ const BudgetCard = () => {
 
   const isSubmitting = fetcher.state === "submitting";
 
-  const budget = JSON.parse(localStorage.getItem("budgets"))[0];
-
   const budgetsPresent = localStorage.getItem("budgets").length > 2;
-  console.log(budgetsPresent, budget);
   let budgetId = "";
 
   if (budgetsPresent) {
