@@ -25,6 +25,7 @@ export const createBudget = ({ name, amount }) => {
     name: name,
     createAt: Date.now(),
     amount: +amount,
+    expenses: [],
     color: generateRandomColor(),
   };
   const existingBudgets = fetchData("budgets") ?? [];
@@ -43,33 +44,16 @@ export const createExpense = ({ name, amount, budgetId }) => {
     budgetId: budgetId,
   };
 
-  // const existingExpenses = fetchData("expenses") ?? [];
-  // const updatedExpenses = [...existingExpenses, newExpense];
-  // localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
-
-  const existingBudgets = fetchData("budgets") ?? [];
-  const updatedBudgets = existingBudgets.map((budget) => {
-    if (budget.id === budgetId) {
+  const existingExpenses = fetchData("budgets").expenses ?? [];
+  const updatedBudgets = existingExpenses.map((expense) => {
+    if (expense.budgetId === budgetId) {
       return {
-        ...budget,
-        expenses: [
-          ...(budget.expenses || []),
-          {
-            id: newExpense.id,
-            name: newExpense.name,
-            amount: newExpense.amount,
-          },
-        ],
+        ...expense,
+        expenses: [...expense.expenses, newExpense],
       };
     }
-    return budget;
+    return expense;
   });
-
-  
-
-
-  // Link the expense to the corresponding budget
-
   localStorage.setItem("budgets", JSON.stringify(updatedBudgets));
 };
 

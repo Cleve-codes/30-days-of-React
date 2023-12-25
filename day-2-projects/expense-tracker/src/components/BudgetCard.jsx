@@ -12,6 +12,22 @@ const BudgetCard = () => {
 
   const isSubmitting = fetcher.state === "submitting";
 
+  const budget = JSON.parse(localStorage.getItem("budgets"))[0];
+
+  const budgetsPresent = localStorage.getItem("budgets").length > 2;
+  console.log(budgetsPresent, budget);
+  let budgetId = "";
+
+  if (budgetsPresent) {
+    const parsedBudgets = JSON.parse(localStorage.getItem("budgets"));
+    if (
+      parsedBudgets.length > 0 &&
+      Object.prototype.hasOwnProperty.call(parsedBudgets[0], "id")
+    ) {
+      budgetId = parsedBudgets[0].id;
+    }
+  }
+
   useEffect(() => {
     if (!isSubmitting) {
       formRef.current.reset();
@@ -82,6 +98,7 @@ const BudgetCard = () => {
             ></input>
           </div>
           <input type="hidden" name="_action" value="addExpense" />
+          <input type="hidden" name="budgetId" value={budgetId} />
         </div>
         {budgets?.length > 1 && (
           <div className="ml-[3em] mt-[2em]">
