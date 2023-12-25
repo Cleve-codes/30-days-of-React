@@ -25,7 +25,6 @@ export const createBudget = ({ name, amount }) => {
     name: name,
     createAt: Date.now(),
     amount: +amount,
-    expenses: [],
     color: generateRandomColor(),
   };
   const existingBudgets = fetchData("budgets") ?? [];
@@ -39,22 +38,21 @@ export const createExpense = ({ name, amount, budgetId }) => {
   const newExpense = {
     id: crypto.randomUUID(),
     name: name,
-    createAt: Date.now(),
+    createdAt: Date.now(),
     amount: +amount,
     budgetId: budgetId,
   };
 
-  const existingExpenses = fetchData("budgets").expenses ?? [];
-  const updatedBudgets = existingExpenses.map((expense) => {
-    if (expense.budgetId === budgetId) {
-      return {
-        ...expense,
-        expenses: [...expense.expenses, newExpense],
-      };
-    }
-    return expense;
-  });
-  localStorage.setItem("budgets", JSON.stringify(updatedBudgets));
+  const existingBudgets = fetchData("budgets") ?? [];
+  const existingExpenses = fetchData("expenses") ?? [];
+
+  const budgetExists = existingBudgets.some((budget) => budget.id === budgetId);
+  if (budgetExists) {
+    existingExpenses.push(newExpense);
+    localStorage.setItem("expenses", JSON.stringify(existingExpenses));
+  } else {
+    console.log("Budget does not exist");
+  }
 };
 
 // Total spent by budget
