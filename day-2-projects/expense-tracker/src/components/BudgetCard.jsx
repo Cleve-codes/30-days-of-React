@@ -4,13 +4,14 @@ import { useEffect, useRef, useState } from "react";
 
 const BudgetCard = () => {
   const { budgets } = useLoaderData();
-  const [selectedBudget, setSelectedBudget] = useState(budgets[0].name);
   const selectRef = useRef();
   const fetcher = useFetcher();
   const formRef = useRef();
   const focusRef = useRef();
 
   const isSubmitting = fetcher.state === "submitting";
+  let selectedOption = selectRef.current?.value;
+  const [selectedBudget, setSelectedBudget] = useState(selectedOption ? selectedOption : budgets[0].name);
 
   const budgetsPresent = localStorage.getItem("budgets").length > 2;
   let budgetId = "";
