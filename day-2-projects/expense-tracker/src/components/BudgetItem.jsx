@@ -10,7 +10,12 @@ const BudgetItem = ({ budget }) => {
   const spent = getTotalExpensesByBudget(name);
 
   return (
-    <div className="budget">
+    <div className="budget"
+      style={{
+        "--accent": color,
+      }}
+    >
+
       <div className="progress-text">
         <h3>{name}</h3>
         <p>{formatCurrency(amount)} Budgeted</p>
