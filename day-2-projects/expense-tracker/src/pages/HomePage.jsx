@@ -43,19 +43,21 @@ export async function action({ request }) {
     await wait();
     try {
       createExpense({
-        name: values.expense,
-        amount: values.expenseAmount,
-        budgetId: values.budgetId,
+        name: values.newExpense,
+        amount: values.newExpenseAmount,
+        budgetId: values.newExpenseBudget,
       });
-      return toast.success(`${values.expense} added as an expense`);
+      console.log(_action, values);
+      return toast.success(`${values.newExpense} added as an expense`);
     } catch (error) {
+      console.log(error)
       throw new Error("There was a problem creating your budget");
     }
   }
 }
 
 const HomePage = () => {
-  const { userName, budgets } = useLoaderData();
+  const { userName } = useLoaderData();
 
   return (
     <>

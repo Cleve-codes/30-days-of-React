@@ -8,6 +8,13 @@ export async function loader() {
   return { userName, budgets };
 }
 
+// export async function Loader(){
+//   const res = await fetch("/api/budgets");
+//   const data = await res.json();
+
+//   console.log(data);
+// }
+
 const ExistingBudgets = () => {
   const { userName, budgets } = useLoaderData();
   const navigate = useNavigate();
@@ -15,8 +22,8 @@ const ExistingBudgets = () => {
   return (
     <section className="mt-[3%]">
       <h1 className="text-[50px] mb-4">
-        <span className="text-[55px] font-semibold">{userName}&apos;s</span> Existing
-        Budgets
+        <span className="text-[55px] font-semibold">{userName}&apos;s</span>{" "}
+        Existing Budgets
       </h1>
       <div className="budgets">
         {budgets.map((budget) => (

@@ -1,6 +1,6 @@
 import { useFetcher, useLoaderData } from "react-router-dom";
-import Button from "./Button";
 import { useEffect, useRef, useState } from "react";
+import Button from "./Button";
 
 const BudgetCard = () => {
   const { budgets } = useLoaderData();
@@ -8,12 +8,16 @@ const BudgetCard = () => {
   const fetcher = useFetcher();
   const formRef = useRef();
   const focusRef = useRef();
+  const budgetsPresent = localStorage.getItem("budgets").length > 2;
 
   const isSubmitting = fetcher.state === "submitting";
   let selectedOption = selectRef.current?.value;
-  const [selectedBudget, setSelectedBudget] = useState(selectedOption ? selectedOption : budgets[0].name);
+  const [selectedBudget, setSelectedBudget] = useState(
+    selectedOption
+      ? selectedOption
+      : budgetsPresent && budgets[budgets.length - 1].name
+  );
 
-  const budgetsPresent = localStorage.getItem("budgets").length > 2;
   let budgetId = "";
 
   if (budgetsPresent) {
@@ -43,8 +47,6 @@ const BudgetCard = () => {
       <fetcher.Form
         method="post"
         action="/home"
-        name="newExpense"
-        id="newExpense"
         ref={formRef}
         className=" bg-gray-200 rounded-xl w-max-[650px] h-min-[300px] shadow-xl p-4"
       >
@@ -61,8 +63,7 @@ const BudgetCard = () => {
           <div className="flex flex-col ml-[2em]  gap-[.5em] ">
             <label
               className="font-semibold text-[20px] text-gray-700"
-              name="expense"
-              htmlFor="expense"
+              htmlFor="newExpense"
             >
               Expense Name
             </label>
@@ -70,7 +71,8 @@ const BudgetCard = () => {
               className="h-[3.5em] w-4/6 rounded-lg outline-button px-8 py-4"
               type="text"
               ref={focusRef}
-              name="expense"
+              name="newExpense"
+              id="newExpense"
               autoComplete="on"
               required
               placeholder="e.g Groceries"
@@ -79,15 +81,15 @@ const BudgetCard = () => {
           <div className="flex flex-col ml-[2em] gap-[.5em]">
             <label
               className="font-semibold text-[20px] text-gray-700"
-              name="amount"
-              htmlFor="expenseAmount"
+              htmlFor="newExpenseAmount"
             >
               Amount
             </label>
             <input
               className="rounded-sm outline-button px-8 py-4"
               type="number"
-              name="expenseAmount"
+              name="newExpenseAmount"
+              id="newExpenseAmount"
               step={0.01}
               inputMode="decimal"
               autoComplete="on"
@@ -109,9 +111,8 @@ const BudgetCard = () => {
               className="min-w-[95%] px-8 py-4 bg-white mr-[2em] outline-button"
               onChange={handleSelectChange}
               ref={selectRef}
+              // value={selectedBudget}
             >
-              {/* <option>Home</option>
-              <option>School</option> */}
               {budgets
                 .sort((a, b) => a.createdAt - b.createdAt)
                 .map((budget) => (

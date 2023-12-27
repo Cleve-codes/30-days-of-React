@@ -7,9 +7,7 @@ import PropTypes from "prop-types";
 
 const BudgetItem = ({ budget }) => {
   const { id, name, amount, color } = budget;
-  // const selectedBudget = 
-  const spent = getTotalExpensesByBudget(id);
-  console.log(spent);
+  const spent = getTotalExpensesByBudget(name);
 
   return (
     <div className="budget">
@@ -17,14 +15,16 @@ const BudgetItem = ({ budget }) => {
         <h3>{name}</h3>
         <p>{formatCurrency(amount)} Budgeted</p>
       </div>
-      <progress max={amount} value={spent}>
-        {/* Percentage */}
-        {formatPercentage(spent / amount)}
-      </progress>
-      <div className="progress-text">
-        <small>{formatCurrency(spent)} spent</small>
-        <small>{formatCurrency(amount - spent)} remaining</small>
-      </div>
+
+      <>
+        <progress max={amount} value={spent}>
+          {formatPercentage(spent / amount)}
+        </progress>
+        <div className="progress-text">
+          <small>{formatCurrency(spent)} spent</small>
+          <small>{formatCurrency(amount - spent)} remaining</small>
+        </div>
+      </>
     </div>
   );
 };
