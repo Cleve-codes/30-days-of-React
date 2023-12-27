@@ -85,7 +85,7 @@ export const createExpense = ({ name, amount, budgetId }) => {
   const existingBudgets = fetchData("budgets") ?? [];
   const existingExpenses = fetchData("expenses") ?? [];
 
-  console.log("existingBudgets:", existingBudgets);
+  // console.log("existingBudgets:", existingBudgets);
   const budget = existingBudgets.some((budget) => budget.id === budgetId);
 
   if (
@@ -117,4 +117,9 @@ export const formatPercentage = (amount) => {
     style: "percent",
     maximumFractionDigits: 2,
   }).format(amount);
+};
+
+// Format Date
+export const formatDateToLocaleString = (date) => {
+  return new Date(date).toLocaleDateString();
 };

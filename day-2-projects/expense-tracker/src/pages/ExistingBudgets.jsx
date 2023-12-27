@@ -1,11 +1,13 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import BudgetItem from "../components/BudgetItem";
 import { MdArrowBack } from "react-icons/md";
+import Table from "../components/Table";
 
 export async function loader() {
   const userName = JSON.parse(localStorage.getItem("userName"));
   const budgets = JSON.parse(localStorage.getItem("budgets"));
-  return { userName, budgets };
+  const expenses = JSON.parse(localStorage.getItem("expenses"));
+  return { userName, budgets, expenses };
 }
 
 // export async function Loader(){
@@ -16,7 +18,7 @@ export async function loader() {
 // }
 
 const ExistingBudgets = () => {
-  const { userName, budgets } = useLoaderData();
+  const { userName, budgets, expenses } = useLoaderData();
   const navigate = useNavigate();
 
   return (
@@ -30,6 +32,14 @@ const ExistingBudgets = () => {
           <BudgetItem key={budget.id} budget={budget} />
         ))}
       </div>
+      {expenses && expenses.length > 0 ? (
+        <div className="grid-md">
+          <h1 className="text-[50px] my-4">Expenses Details</h1>
+          <Table
+            expenses={expenses.sort((a, b) => b.createdAt - a.createdAt)}
+          />
+        </div>
+      ) : null}
       <div className="mt-[2em]">
         <button
           className="custom-span flex items-center gap-[1em] hover:bg-gray-400 hover:text-gray-900 text-gray-800 font-bold py-4 px-8 rounded-md"

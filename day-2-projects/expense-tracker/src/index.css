@@ -92,6 +92,62 @@ body {
   gap: var(--space-sm);
 }
 
+.grid-md {
+  display: -ms-grid;
+  display: grid;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+[hidden] {
+  display: none;
+}
+
+/* Table */
+.table {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+}
+
+tr:nth-child(odd) {
+  background-color: hsl(var(--accent) / 0.04);
+}
+
+td {
+  border: none;
+  font-size: var(--fs-200);
+}
+
+thead > tr:nth-child(odd) {
+  background-color: hsl(var(--bkg));
+}
+
+td,
+th {
+  text-align: center;
+  padding: var(--space-xs);
+}
+
+table .btn {
+  margin-inline: auto;
+}
+
+table a {
+  text-decoration: none;
+  color: hsl(var(--bkg));
+  background-color: hsl(var(--accent));
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--round-full);
+}
+
+/* toast */
+.Toastify__toast-body {
+  font-size: var(--fs-300);
+}
+
 /* form */
 .form-wrapper {
   -webkit-box-flex: 1;

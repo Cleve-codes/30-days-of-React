@@ -53,6 +53,7 @@ const BudgetCard = () => {
         wait().then(() => {
           e.target.value = "";
           setDisabled(false);
+          formRef.current.reset();
         });
         return toast.warn("Not enough funds.");
       });

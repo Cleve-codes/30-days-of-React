@@ -47,11 +47,11 @@ export async function action({ request }) {
         amount: values.newExpenseAmount,
         budgetId: values.budgetId,
       });
-      console.log(_action, values);
+      // console.log(_action, values);
       return toast.success(`${values.newExpense} added as an expense`);
     } catch (error) {
-      // return toast.error(error.message);
-      return console.log(error?.message);
+      return toast.error(error?.message);
+      // return console.log(error?.message);
     }
   }
   return null;
