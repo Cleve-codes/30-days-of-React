@@ -34,7 +34,7 @@ const ExistingBudgets = () => {
       </div>
       {expenses && expenses.length > 0 ? (
         <div className="grid-md">
-          <h1 className="text-[50px] my-4">Expenses Details</h1>
+          <h1 className="text-[50px] my-4">Recent Expenses</h1>
           <Table
             expenses={expenses.sort((a, b) => b.createdAt - a.createdAt)}
           />
