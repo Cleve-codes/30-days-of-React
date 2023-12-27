@@ -13,9 +13,7 @@ const BudgetCard = () => {
   const isSubmitting = fetcher.state === "submitting";
   let selectedOption = selectRef.current?.value;
   const [selectedBudget, setSelectedBudget] = useState(
-    selectedOption
-      ? selectedOption
-      : budgetsPresent && budgets[budgets.length - 1].name
+    selectedOption ? selectedOption : budgetsPresent && budgets[0].name
   );
 
   let budgetId = "";
@@ -46,7 +44,6 @@ const BudgetCard = () => {
     <div className="form-wrapper">
       <fetcher.Form
         method="post"
-        action="/home"
         ref={formRef}
         className=" bg-gray-200 rounded-xl w-max-[650px] h-min-[300px] shadow-xl p-4"
       >

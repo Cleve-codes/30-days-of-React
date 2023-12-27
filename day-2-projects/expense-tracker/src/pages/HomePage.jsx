@@ -50,8 +50,7 @@ export async function action({ request }) {
       console.log(_action, values);
       return toast.success(`${values.newExpense} added as an expense`);
     } catch (error) {
-      console.log(error)
-      throw new Error("There was a problem creating your budget");
+      return toast.error(error.message);
     }
   }
 }
