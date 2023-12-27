@@ -69,7 +69,8 @@ body {
   background-image: url(./assets/wave.svg);
   background-repeat: no-repeat;
   background-size: cover;
-  width: 100%;
+  background-position: bottom;
+  min-width: 100%;
   height: 20%;
   bottom: 0;
   z-index: -1;
@@ -96,6 +97,13 @@ body {
   display: -ms-grid;
   display: grid;
   gap: var(--space-md);
+  width: 100%;
+}
+
+.grid-lg {
+  display: -ms-grid;
+  display: grid;
+  gap: var(--space-lg);
   width: 100%;
 }
 

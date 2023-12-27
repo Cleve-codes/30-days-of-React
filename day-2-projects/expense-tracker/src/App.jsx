@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import IndexRoute from "./pages/IndexRoute";
 import ExistingBudgets, { loader } from "./pages/ExistingBudgets";
+import ExpensesPage, { loader as expensesLoader } from "./pages/ExpensesPage";
 // import BudgetCard from "./components/BudgetCard";
 
 const router = createBrowserRouter([
@@ -40,6 +41,11 @@ const router = createBrowserRouter([
         element: <ExistingBudgets />,
         loader: loader,
         errorElement: <ErrorPage />,
+      },
+      {
+        path: "expense",
+        element: <ExpensesPage />,
+        loader: expensesLoader,
       },
     ],
   },

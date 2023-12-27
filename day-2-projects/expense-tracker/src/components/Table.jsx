@@ -8,13 +8,15 @@ const Table = ({ expenses }) => {
         <thead>
           <tr>
             {["Name", "Amount", "Date"].map((i, index) => (
-              <th key={index}>{i}</th>
+              <th className="text-[30px]" key={index}>
+                {i}
+              </th>
             ))}
           </tr>
         </thead>
         <tbody>
           {expenses.map((expense) => (
-            <tr key={expense.id}>
+            <tr className="text-[20px]" key={expense.id}>
               <ExpenseItem expense={expense} />
             </tr>
           ))}

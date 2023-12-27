@@ -2,6 +2,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import BudgetItem from "../components/BudgetItem";
 import { MdArrowBack } from "react-icons/md";
 import Table from "../components/Table";
+import Button from "../components/Button";
 
 export async function loader() {
   const userName = JSON.parse(localStorage.getItem("userName"));
@@ -10,12 +11,6 @@ export async function loader() {
   return { userName, budgets, expenses };
 }
 
-// export async function Loader(){
-//   const res = await fetch("/api/budgets");
-//   const data = await res.json();
-
-//   console.log(data);
-// }
 
 const ExistingBudgets = () => {
   const { userName, budgets, expenses } = useLoaderData();
@@ -36,11 +31,13 @@ const ExistingBudgets = () => {
         <div className="grid-md">
           <h1 className="text-[50px] my-4">Recent Expenses</h1>
           <Table
-            expenses={expenses.sort((a, b) => b.createdAt - a.createdAt)}
+            expenses={expenses
+              .sort((a, b) => b.createdAt - a.createdAt)
+              .slice(0, 5)}
           />
         </div>
       ) : null}
-      <div className="mt-[2em]">
+      <div className="mt-[2em] flex justify-between">
         <button
           className="custom-span flex items-center gap-[1em] hover:bg-gray-400 hover:text-gray-900 text-gray-800 font-bold py-4 px-8 rounded-md"
           onClick={() => navigate(-1)}
@@ -48,6 +45,9 @@ const ExistingBudgets = () => {
           <MdArrowBack />
           Go Back
         </button>
+        {expenses?.length > 5 ? (
+          <Button text="View all expenses" to="/home/expense" />
+        ) : null}
       </div>
     </section>
   );

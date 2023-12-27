@@ -1,5 +1,5 @@
-export const wait = () =>
-  new Promise((res) => setTimeout(res, Math.random() * 2000));
+export const wait = (time) =>
+  new Promise((res) => setTimeout(res, Math.random() * time));
 
 export const generateRandomColor = () => {
   const existingBudgetsLength = localStorage.getItem("budgets")?.length ?? 0;

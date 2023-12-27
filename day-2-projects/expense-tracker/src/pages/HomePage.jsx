@@ -27,7 +27,7 @@ export async function action({ request }) {
   }
 
   if (_action === "addBudget") {
-    await wait();
+    await wait(1000);
     try {
       createBudget({
         name: values.budget,
@@ -40,7 +40,7 @@ export async function action({ request }) {
   }
 
   if (_action === "addExpense") {
-    await wait();
+    await wait(1000);
     try {
       createExpense({
         name: values.newExpense,
