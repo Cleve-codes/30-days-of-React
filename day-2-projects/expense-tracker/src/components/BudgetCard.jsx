@@ -11,20 +11,27 @@ const BudgetCard = () => {
   const budgetsPresent = localStorage.getItem("budgets").length > 2;
 
   const isSubmitting = fetcher.state === "submitting";
-  let selectedOption = selectRef.current?.value;
+  let selectedOption = selectRef.current?.value || budgets[0]?.name;
   const [selectedBudget, setSelectedBudget] = useState(
     selectedOption ? selectedOption : budgets ? [-1].name : null
   );
 
   let budgetId = "";
+  // console.log(selectedOption)
 
   if (budgetsPresent) {
     const parsedBudgets = JSON.parse(localStorage.getItem("budgets"));
     if (
-      parsedBudgets.length > 0 &&
-      Object.prototype.hasOwnProperty.call(parsedBudgets[0], "id")
+      parsedBudgets.length > 0
+      // &&
+      // Object.keys(parsedBudgets[0]).includes("name")
     ) {
-      budgetId = parsedBudgets[0].id;
+      // budgetId = parsedBudgets[0].id;
+      parsedBudgets.forEach((budget) => {
+        if (selectedOption && budget.name === selectedOption) {
+          budgetId = budget.id;
+        }
+      });
     }
   }
 
@@ -44,9 +51,6 @@ const BudgetCard = () => {
     <div className="form-wrapper">
       <fetcher.Form
         method="post"
-        action="/home"
-        name="newExpense"
-        id="newExpense"
         ref={formRef}
         className=" bg-gray-200 rounded-xl w-max-[650px] h-min-[300px] shadow-xl p-4"
       >
@@ -72,7 +76,7 @@ const BudgetCard = () => {
               className="h-[3.5em] w-4/6 rounded-lg outline-button px-8 py-4"
               type="text"
               ref={focusRef}
-              name="expense"
+              name="newExpense"
               autoComplete="on"
               required
               placeholder="e.g Groceries"
@@ -89,7 +93,7 @@ const BudgetCard = () => {
             <input
               className="rounded-sm outline-button px-8 py-4"
               type="number"
-              name="expenseAmount"
+              name="newExpenseAmount"
               step={0.01}
               inputMode="decimal"
               autoComplete="on"

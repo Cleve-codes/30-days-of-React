@@ -45,14 +45,16 @@ export async function action({ request }) {
       createExpense({
         name: values.newExpense,
         amount: values.newExpenseAmount,
-        budgetId: values.newExpenseBudget,
+        budgetId: values.budgetId,
       });
       console.log(_action, values);
       return toast.success(`${values.newExpense} added as an expense`);
     } catch (error) {
-      return toast.error(error.message);
+      // return toast.error(error.message);
+      return console.log("Problem adding expense");
     }
   }
+  return null;
 }
 
 const HomePage = () => {

@@ -29,6 +29,7 @@ export async function action({ request }) {
       throw new Error("There was a problem deleting your account");
     }
   }
+  return null;
 }
 
 const Main = () => {

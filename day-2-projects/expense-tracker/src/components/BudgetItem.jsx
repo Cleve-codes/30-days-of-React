@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 const BudgetItem = ({ budget }) => {
   const { id, name, amount, color } = budget;
-  const spent = getTotalExpensesByBudget(name);
+  const spent = getTotalExpensesByBudget(id);
 
   return (
     <div className="budget"
