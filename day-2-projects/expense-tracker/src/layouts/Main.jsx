@@ -16,6 +16,7 @@ export async function action({ request }) {
       return toast.success(`Welcome ${values.userName}`);
     } catch (error) {
       throw new Error("There was a problem creating your account");
+      // console.log(error?.message);
     }
   }
 

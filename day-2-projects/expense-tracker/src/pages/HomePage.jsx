@@ -51,7 +51,7 @@ export async function action({ request }) {
       return toast.success(`${values.newExpense} added as an expense`);
     } catch (error) {
       // return toast.error(error.message);
-      return console.log("Problem adding expense");
+      return console.log(error?.message);
     }
   }
   return null;

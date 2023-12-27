@@ -1,6 +1,8 @@
 import { useFetcher, useLoaderData } from "react-router-dom";
 import Button from "./Button";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
+import { wait } from "../helpers";
 
 const BudgetCard = () => {
   const { budgets } = useLoaderData();
@@ -12,13 +14,16 @@ const BudgetCard = () => {
 
   const isSubmitting = fetcher.state === "submitting";
   let selectedOption = selectRef.current?.value || budgets[0]?.name;
+
   const [selectedBudget, setSelectedBudget] = useState(
     selectedOption ? selectedOption : budgets ? [-1].name : null
   );
+  const [disabled, setDisabled] = useState(false);
 
-  let budgetId = "";
   // console.log(selectedOption)
 
+  // Dynamically set budgetId
+  let budgetId = "";
   if (budgetsPresent) {
     const parsedBudgets = JSON.parse(localStorage.getItem("budgets"));
     if (
@@ -34,6 +39,27 @@ const BudgetCard = () => {
       });
     }
   }
+
+  // Check if expense amount is greater than budget amount
+  const handleAmountChange = (e) => {
+    const inputAmount = e.target.value;
+    const budgetAmount = budgets.find(
+      (budget) => budget.name === selectedBudget
+    ).amount;
+    if (inputAmount > budgetAmount) {
+      wait().then(() => {
+        // e.target.value = "";
+        setDisabled(true);
+        wait().then(() => {
+          e.target.value = "";
+          setDisabled(false);
+        });
+        return toast.warn("Not enough funds.");
+      });
+    } else {
+      setDisabled(false);
+    }
+  };
 
   useEffect(() => {
     if (!isSubmitting) {
@@ -99,6 +125,8 @@ const BudgetCard = () => {
               autoComplete="on"
               required
               placeholder="Enter Amount"
+              onChange={handleAmountChange}
+              disabled={disabled}
             ></input>
           </div>
           <input type="hidden" name="_action" value="addExpense" />

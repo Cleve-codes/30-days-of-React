@@ -13,6 +13,30 @@ export const fetchData = (key) => {
   return data ? JSON.parse(data) : null;
 };
 
+// Computation Functions
+// Expenses by budget
+export const getExpensesByBudget = (budgetId) => {
+  const existingExpenses = fetchData("expenses") ?? [];
+  const expenses = existingExpenses.filter(
+    (expense) => expense.budgetId === budgetId
+  );
+  return expenses;
+};
+
+// Total Expense spent by budget
+export const getTotalExpensesByBudget = (budgetId) => {
+  const expenses = getExpensesByBudget(budgetId);
+  const total = expenses.reduce((acc, expense) => acc + expense.amount, 0);
+  return total;
+};
+
+// Total budget by Id
+export const getTotalBudgetById = (budgetId) => {
+  const existingBudgets = fetchData("budgets") ?? [];
+  const budget = existingBudgets.find((budget) => budget.id === budgetId);
+  return budget.amount;
+};
+
 // USER FUNCTIONS
 // Create New User
 export const createUser = async (name, email) => {
@@ -62,46 +86,20 @@ export const createExpense = ({ name, amount, budgetId }) => {
   const existingExpenses = fetchData("expenses") ?? [];
 
   console.log("existingBudgets:", existingBudgets);
-  // const budget = existingBudgets.some((budget) => budget.id === budgetId);
+  const budget = existingBudgets.some((budget) => budget.id === budgetId);
 
-  // if (budget && budget.amount >= amount) {
-  existingExpenses.push(newExpense);
-  localStorage.setItem("expenses", JSON.stringify(existingExpenses));
-  //   } else {
-  //     // toast.error("Budget not found or not enough money");
-  //     console.log(
-  //       "budget:",
-  //       budget,
-  //       "amount:",
-  //       amount,
-  //       "budgetName:",
-  //       budget.name
-  //     );
-  //     throw new Error("Not enough money 🔒");
-  //   }
-};
+  if (
+    budget
+    // &&
+    // getTotalExpensesByBudget(budgetId) + amount <= getTotalBudgetById(budgetId)
+  ) {
+    existingExpenses.push(newExpense);
 
-// Expenses by budget
-export const getExpensesByBudget = (budgetId) => {
-  const existingExpenses = fetchData("expenses") ?? [];
-  const expenses = existingExpenses.filter(
-    (expense) => expense.budgetId === budgetId
-  );
-  return expenses;
-};
-
-// Total Expense spent by budget
-export const getTotalExpensesByBudget = (budgetId) => {
-  const expenses = getExpensesByBudget(budgetId);
-  const total = expenses.reduce((acc, expense) => acc + expense.amount, 0);
-  return total;
-};
-
-// Total budget by Id
-export const getTotalBudgetById = (budgetId) => {
-  const existingBudgets = fetchData("budgets") ?? [];
-  const budget = existingBudgets.find((budget) => budget.id === budgetId);
-  return budget.amount;
+    return localStorage.setItem("expenses", JSON.stringify(existingExpenses));
+  } else {
+    // console.log("Some error");
+    throw new Error("Not enough balance");
+  }
 };
 
 // FORMATTING FUNCTIONS
