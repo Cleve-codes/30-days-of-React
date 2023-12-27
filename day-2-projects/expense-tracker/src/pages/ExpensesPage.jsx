@@ -1,10 +1,28 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Table from "../components/Table";
+import { toast } from "react-toastify";
+import { deleteExpenseByBudgetId } from "../helpers";
 
 export async function loader() {
   const expenses = JSON.parse(localStorage.getItem("expenses"));
   return { expenses };
+}
+
+export async function action({ request }) {
+  const data = await request.formData();
+  const { _action, ...values } = Object.fromEntries(data);
+
+  if (_action === "deleteExpense") {
+    try {
+      deleteExpenseByBudgetId(values.budgetId);
+      console.log(_action, values);
+      return true;
+    } catch (error) {
+      return toast.error(error?.message);
+    }
+  }
+  return null;
 }
 
 const ExpensesPage = () => {

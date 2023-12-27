@@ -45,25 +45,28 @@ const BudgetCard = () => {
 
   // Check if expense amount is greater than budget amount
   const handleAmountChange = (e) => {
-    console.log("handleAmountChange triggered");
     const inputAmount = e.target.value;
     const remainingBudgetAmount =
       getTotalBudgetById(budgetId) - getTotalExpensesByBudget(budgetId);
 
     if (inputAmount > remainingBudgetAmount) {
-      wait(500).then(() => {
-        setDisabled((disabled) => !disabled);
-        wait(1000).then(() => {
+      wait(500)
+        .then(() => {
+          setDisabled((disabled) => !disabled);
+          return wait(1000);
+        })
+        .then(() => {
           e.target.value = "";
           setDisabled((disabled) => !disabled);
           formRef.current.reset();
+          toast.warn("Not enough funds.");
+        })
+        .then(() => {
+          return wait(2000);
+        })
+        .then(() => {
+          toast.error("Check expenditure");
         });
-        toast.warn("Not enough funds.");
-      });
-
-      wait(2000).then(() => {
-        toast.error("Check expenditure");
-      });
     } else {
       setDisabled(false);
     }

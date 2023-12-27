@@ -37,6 +37,27 @@ export const getTotalBudgetById = (budgetId) => {
   return budget.amount;
 };
 
+// function to find budget by expense.budgetId
+export const findBudgetById = (budgetId) => {
+  const budgets = JSON.parse(localStorage.getItem("budgets"));
+  const budget = budgets.find((budget) => budget.id === budgetId);
+  return budget;
+};
+
+// find budgetColor by budgetId
+export const findBudgetColorById = (budgetId) => {
+  const budget = findBudgetById(budgetId);
+  return budget?.color;
+};
+
+// Delete expense by budgetId
+export const deleteExpenseByBudgetId = (budgetId) => {
+  const expenses = fetchData("expenses") ?? [];
+
+  const newExpenses = expenses.filter((expense) => expense.budgetId !== budgetId);
+  return localStorage.setItem("expenses", JSON.stringify(newExpenses));
+}
+
 // USER FUNCTIONS
 // Create New User
 export const createUser = async (name, email) => {
