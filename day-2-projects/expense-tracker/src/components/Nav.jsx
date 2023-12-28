@@ -23,8 +23,9 @@ const Nav = () => {
         <button
           type="submit"
           className="text-black px-8 py-4 flex  justify-center items-center gap-2"
+          title="Delete Account"
         >
-          <p className="font-bold text-[20px]" to="/">
+          <p className="font-bold text-[20px] sm:block hidden" to="/">
             Delete User
           </p>
           <FaRegTrashAlt className="text-red-500" />

@@ -85,13 +85,13 @@ const BudgetCard = () => {
   };
 
   return (
-    <div className="form-wrapper">
+    <div className="form-wrapper items-center">
       <fetcher.Form
         method="post"
         ref={formRef}
-        className=" bg-gray-200 rounded-xl w-max-[650px] h-min-[300px] shadow-xl p-4"
+        className=" bg-gray-200 rounded-xl shadow-xl"
       >
-        <h1 className="font-semibold text-[25px] ml-[2em]">
+        <h1 className="font-semibold text-[25px] ml-[1em] mt-[.25em] sm:ml-[2em]">
           Add New{" "}
           <span>
             {budgets.length === 1
@@ -100,8 +100,8 @@ const BudgetCard = () => {
           </span>{" "}
           Expense.
         </h1>
-        <div className="flex items-center justify-center mt-[2%]">
-          <div className="flex flex-col ml-[2em]  gap-[.5em] ">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-center mt-[2%]">
+          <div className="flex flex-col mx-[2em] sm:ml-[2em]  gap-[.5em] ">
             <label
               className="font-semibold text-[20px] text-gray-700"
               name="expense"
@@ -110,17 +110,17 @@ const BudgetCard = () => {
               Expense Name
             </label>
             <input
-              className="h-[3.5em] w-4/6 rounded-lg outline-button px-8 py-4"
+              className="rounded-lg outline-button px-8 py-4"
               type="text"
               ref={focusRef}
               name="newExpense"
               autoComplete="on"
               required
               placeholder="e.g Groceries"
-            // disabled={disabled}
+              // disabled={disabled}
             ></input>
           </div>
-          <div className="flex flex-col ml-[2em] gap-[.5em]">
+          <div className="flex flex-col mx-[2em] sm:ml-[2em] gap-[.5em]">
             <label
               className="font-semibold text-[20px] text-gray-700"
               name="amount"

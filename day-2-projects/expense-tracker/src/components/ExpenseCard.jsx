@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import Button from "./Button";
 import { Link, useFetcher } from "react-router-dom";
 // import BudgetCard from "./BudgetCard";
 
@@ -8,7 +7,6 @@ const ExpenseCard = () => {
   const isSubmitting = fetcher.state === "submitting";
 
   const budgetsPresent = localStorage.getItem("budgets").length > 2;
-  
 
   const formRef = useRef();
   const focusRef = useRef();
@@ -28,9 +26,11 @@ const ExpenseCard = () => {
         ref={formRef}
         name="newBudget"
         id="newBudget"
-        className="bg-gray-300 rounded-xl w-max-[650px] h-min-[300px] shadow-2xl p-4"
+        className="bg-gray-300 rounded-xl shadow-2xl lg:p-2 sm:p-4"
       >
-        <h1 className="font-semibold text-[25px] ml-[2em]">Create a budget</h1>
+        <h1 className="font-semibold text-[25px] ml-0 sm:ml-[2em] xs:text-center xs:mt-[.25em]">
+          Create a budget
+        </h1>
         <div className="flex flex-col ml-[2em] mt-[2em] gap-[.5em] ">
           <label
             className="font-semibold text-[20px] text-gray-700"
@@ -69,23 +69,33 @@ const ExpenseCard = () => {
             required
           ></input>
           <input type="hidden" name="_action" value="addBudget" />
-          
         </div>
-        <div className="flex gap-8">
-          <div className="ml-[2em] mt-[2em]">
-            <Button text="Create Budget 🪙" disabled={isSubmitting} />
+        <div className="flex flex-col lg:flex-row sm:gap-8 gap-2 ">
+          <div className="sm:mt-[2em] sm:mx-[2em] xs:mx-[2em] ml-0 mt-[2em]">
+            {/* <Button className="px-8 py-4" text="Create Budget 🪙" disabled={isSubmitting} /> */}
+            <Link
+              className="cursor-pointer group relative flex gap-1.5 
+                px-8 py-4 bg-black bg-opacity-80 text-[#f1f1f1] 
+                rounded-2xl hover:bg-opacity-70 
+                transition font-semibold shadow-md
+                lg:w-max w-full
+                "
+              to="/home/budgets"
+            >
+              Add Expense 🪙
+            </Link>
           </div>
-
           {budgetsPresent && (
-            <div className="mt-[2em]">
+            <div className="mt-0 lg:mt-[2em]">
               <Link
                 className="cursor-pointer group relative flex gap-1.5 
-    px-8 py-4 bg-black bg-opacity-80 text-[#f1f1f1] 
-    rounded-2xl hover:bg-opacity-70 
-    transition font-semibold shadow-md"
+                px-8 py-4 bg-black bg-opacity-80 text-[#f1f1f1] 
+                rounded-2xl hover:bg-opacity-70 
+                transition font-semibold shadow-md sm:mx-[2em] xs:mx-[2em] xs:mb-[1em]"
                 to="/home/budgets"
               >
-                View Existing Budgets
+                View <span className="text-white xs:hidden">Existing</span>{" "}
+                Budgets
               </Link>
             </div>
           )}

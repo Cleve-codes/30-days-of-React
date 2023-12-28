@@ -166,6 +166,8 @@ table a {
   position: relative;
   display: -ms-grid;
   display: grid;
+  align-items: center;
+  justify-items: center;
   gap: var(--space-sm);
   background-color: var(--bkg);
   padding: var(--space-xl);
