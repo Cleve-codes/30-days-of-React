@@ -117,7 +117,7 @@ const BudgetCard = () => {
               autoComplete="on"
               required
               placeholder="e.g Groceries"
-              // disabled={disabled}
+            // disabled={disabled}
             ></input>
           </div>
           <div className="flex flex-col ml-[2em] gap-[.5em]">

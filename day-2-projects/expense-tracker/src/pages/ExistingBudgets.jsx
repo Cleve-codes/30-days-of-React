@@ -11,13 +11,12 @@ export async function loader() {
   return { userName, budgets, expenses };
 }
 
-
 const ExistingBudgets = () => {
   const { userName, budgets, expenses } = useLoaderData();
   const navigate = useNavigate();
 
   return (
-    <section className="mt-[3%]">
+    <section className="mt-[2%]">
       <h1 className="text-[50px] mb-4">
         <span className="text-[55px] font-semibold">{userName}&apos;s</span>{" "}
         Existing Budgets
@@ -40,7 +39,7 @@ const ExistingBudgets = () => {
       <div className="mt-[2em] flex justify-between">
         <button
           className="custom-span flex items-center gap-[1em] hover:bg-gray-400 hover:text-gray-900 text-gray-800 font-bold py-4 px-8 rounded-md"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/home")}
         >
           <MdArrowBack />
           Go Back

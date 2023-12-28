@@ -23,7 +23,7 @@ const IndexRoute = () => {
         )}
       </div>
       <div>
-        <div className="mt-[2em] mr-[15%] grid grid-cols-2 grid-rows-2 gap-[2.5em]">
+        <div className="mt-[2em] mr-[15%] grid grid-cols-1 md:grid-cols-2  gap-[2.5em]">
           <ExpenseCard />
           {budgets?.length > 0 && <BudgetCard />}
         </div>

@@ -25,7 +25,7 @@ const ExpenseItem = ({ expense }) => {
         <Link
           className="px-2 rounded-md "
           style={{ backgroundColor: `hsl(${budgdetColor})` }}
-          to={`/home/budget/${expense.budgetId}`}
+          to={`/home/budgets`}
         >
           {budgetName}
         </Link>

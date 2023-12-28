@@ -62,11 +62,13 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="min-h-screen  flex flex-col text-black ml-[15%] mt-[2em] mr-[5%]">
-        <Nav userName={userName} />
-        <Outlet />
+      <div className="flex flex-col">
+        <div className="text-black ml-[15%] mt-[2em] mr-[5%] min-h-[70vh]">
+          <Nav userName={userName} />
+          <Outlet />
+        </div>
+        <div className="home min-h-[30vh]"></div>
       </div>
-      <div className="home"></div>
     </>
   );
 };
