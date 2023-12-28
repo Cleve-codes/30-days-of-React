@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import BudgetItem from "../components/BudgetItem";
 import { MdArrowBack } from "react-icons/md";
 import Table from "../components/Table";
@@ -15,6 +15,9 @@ const ExistingBudgets = () => {
   const { userName, budgets, expenses } = useLoaderData();
   const navigate = useNavigate();
 
+  const {id} = useParams();
+  const showDelete = id !== undefined;
+
   return (
     <section className="mt-[2%]">
       <h1 className="text-[50px] mb-4">
@@ -23,7 +26,7 @@ const ExistingBudgets = () => {
       </h1>
       <div className="budgets">
         {budgets.map((budget) => (
-          <BudgetItem key={budget.id} budget={budget} />
+          <BudgetItem key={budget.id} budget={budget} showDelete={showDelete} />
         ))}
       </div>
       {expenses && expenses.length > 0 ? (
@@ -45,7 +48,7 @@ const ExistingBudgets = () => {
           Go Back
         </button>
         {expenses?.length > 5 ? (
-          <Button text="View all expenses" to="/home/expense" />
+          <Button text="View all expenses" to="/home/expense" showDelete={false} />
         ) : null}
       </div>
     </section>
