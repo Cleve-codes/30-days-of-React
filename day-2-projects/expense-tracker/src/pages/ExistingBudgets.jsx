@@ -17,6 +17,8 @@ const ExistingBudgets = () => {
 
   const {id} = useParams();
   const showDelete = id !== undefined;
+  const showBudgetName = id === undefined;
+  console.log(id, showBudgetName)
 
   return (
     <section className="mt-[2%]">
@@ -36,6 +38,7 @@ const ExistingBudgets = () => {
             expenses={expenses
               .sort((a, b) => b.createdAt - a.createdAt)
               .slice(0, 5)}
+            showBudgetName={showBudgetName}
           />
         </div>
       ) : null}

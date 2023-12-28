@@ -12,6 +12,8 @@ const BudgetOverviewPage = () => {
   const budget = findBudgetById(budgetId);
 
   const showDelete = budgetId !== undefined;
+  const showBudgetName = budgetId === undefined;
+  console.log(showBudgetName, budgetId)
 
   return (
     <section>
@@ -48,7 +50,7 @@ const BudgetOverviewPage = () => {
           Expense <small>({expenses.length} total)</small>
         </h1>
         <div className="grid-md">
-          <Table expenses={expenses} showBudget={false} />
+          <Table expenses={expenses} showBudgetName={showBudgetName} />
         </div>
       </div>
     </section>

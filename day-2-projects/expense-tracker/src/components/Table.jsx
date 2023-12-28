@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import ExpenseItem from "./ExpenseItem";
 
-const Table = ({ expenses, showBudget = true }) => {
+const Table = ({ expenses, showBudgetName }) => {
 
   const headers = ["Name", "Amount", "Date", ""];
-  if (showBudget) {
+  if (showBudgetName) {
     headers.splice(3, 0, "Budget");
   }
 
@@ -23,7 +23,7 @@ const Table = ({ expenses, showBudget = true }) => {
         <tbody>
           {expenses.map((expense) => (
             <tr className="text-[20px]" key={expense.id}>
-              <ExpenseItem expense={expense} showBudgetName={false} />
+              <ExpenseItem expense={expense} showBudgetName={showBudgetName} />
             </tr>
           ))}
         </tbody>
@@ -34,7 +34,7 @@ const Table = ({ expenses, showBudget = true }) => {
 
 Table.propTypes = {
   expenses: PropTypes.array.isRequired,
-  showBudget: PropTypes.bool,
+  showBudgetName: PropTypes.bool,
 };
 
 export default Table;

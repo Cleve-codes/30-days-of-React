@@ -8,27 +8,30 @@ import {
 } from "../helpers";
 import { Link, useFetcher } from "react-router-dom";
 
-const ExpenseItem = ({ expense, showBudgetName = true }) => {
+const ExpenseItem = ({ expense, showBudgetName }) => {
   const budgetName = findBudgetById(expense.budgetId)?.name;
   const budgdetColor = findBudgetColorById(expense.budgetId);
   //   console.log(expense);
 
   const fetcher = useFetcher();
+  
 
   return (
     <>
       <td>{expense.name}</td>
       <td>{formatCurrency(expense.amount)}</td>
       <td>{formatDateToLocaleString(expense.createdAt)}</td>
-    {showBudgetName && <td>
-      <Link
-        className="px-2 rounded-md "
-        style={{ backgroundColor: `hsl(${budgdetColor})` }}
-        to={`/home/${expense.budgetId}`}
-      >
-        {budgetName}
-      </Link>
-    </td>}
+      {showBudgetName && (
+        <td>
+          <Link
+            className="px-2 rounded-md "
+            style={{ backgroundColor: `hsl(${budgdetColor})` }}
+            to={`/home/${expense.budgetId}`}
+          >
+            {budgetName}
+          </Link>
+        </td>
+      )}
       <td>
         <fetcher.Form method="post">
           <input type="hidden" name="_action" value="deleteExpense" />
