@@ -8,11 +8,10 @@ import {
 } from "../helpers";
 import { Link, useFetcher } from "react-router-dom";
 
-
 const ExpenseItem = ({ expense }) => {
   const budgetName = findBudgetById(expense.budgetId)?.name;
   const budgdetColor = findBudgetColorById(expense.budgetId);
-//   console.log(expense);
+  //   console.log(expense);
 
   const fetcher = useFetcher();
 
@@ -25,7 +24,7 @@ const ExpenseItem = ({ expense }) => {
         <Link
           className="px-2 rounded-md "
           style={{ backgroundColor: `hsl(${budgdetColor})` }}
-          to={`/home/budgets`}
+          to={`/home/${expense.budgetId}`}
         >
           {budgetName}
         </Link>
