@@ -40,7 +40,7 @@ const Button = ({ text, to, onClick, disabled, icon, showDelete }) => {
         onClick={onClick}
         disabled={disabled}
       >
-        {disabled ? "Submitting..." : showDelete ? "Delete Expense" : text}
+        {disabled ? "Submitting..." : showDelete ? "Delete Budget" : text}
       </button>
     );
   }

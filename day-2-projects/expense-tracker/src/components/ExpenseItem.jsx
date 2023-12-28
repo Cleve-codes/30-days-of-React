@@ -46,7 +46,7 @@ const ExpenseItem = ({ expense, showBudgetName }) => {
 };
 
 ExpenseItem.propTypes = {
-  expense: PropTypes.object.isRequired,
+  expense: PropTypes.object,
   showBudgetName: PropTypes.bool,
 };
 

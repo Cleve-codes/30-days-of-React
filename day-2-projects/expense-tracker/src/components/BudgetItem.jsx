@@ -7,9 +7,18 @@ import PropTypes from "prop-types";
 import { HiMiniBanknotes } from "react-icons/hi2";
 import Button from "./Button";
 
+
 const BudgetItem = ({ budget, showDelete }) => {
   const { id, name, amount, color } = budget;
   const spent = getTotalExpensesByBudget(id);
+
+  const handleDelete = () => {
+    const remainingBudgets = JSON.parse(
+      localStorage.getItem("budgets")
+    ).filter((budget) => budget.id !== id);
+    // console.log(remainingBudgets)
+    localStorage.setItem("budgets", JSON.stringify(remainingBudgets));
+  }
 
   return (
     <>
@@ -39,6 +48,7 @@ const BudgetItem = ({ budget, showDelete }) => {
               text="View Details"
               icon={<HiMiniBanknotes />}
               showDelete={showDelete}
+              onClick={showDelete === true ? handleDelete : undefined}
             />
           </div>
         </>
@@ -48,7 +58,8 @@ const BudgetItem = ({ budget, showDelete }) => {
 };
 
 BudgetItem.propTypes = {
-  budget: PropTypes.object.isRequired,
+  budget: PropTypes.object,
+  showDelete: PropTypes.bool,
 };
 
 export default BudgetItem;

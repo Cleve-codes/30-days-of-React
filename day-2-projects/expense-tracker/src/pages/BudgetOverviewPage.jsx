@@ -4,16 +4,17 @@ import BudgetItem from "../components/BudgetItem";
 import BudgetCard from "../components/BudgetCard";
 import Table from "../components/Table";
 
-export async function action({}) {}
+
 
 const BudgetOverviewPage = () => {
   let { budgetId } = useParams();
   const expenses = getExpensesByBudget(budgetId);
   const budget = findBudgetById(budgetId);
+  console.log(budget)
 
   const showDelete = budgetId !== undefined;
   const showBudgetName = budgetId === undefined;
-  console.log(showBudgetName, budgetId)
+  // console.log(showBudgetName, budgetId)
 
   return (
     <section>
@@ -21,10 +22,10 @@ const BudgetOverviewPage = () => {
         <h1 className="text-[40px]">
           <span
             style={{
-              color: `hsl(${budget.color})`,
+              color: `hsl(${budget?.color})`,
             }}
           >
-            {budget.name}
+            {budget?.name}
           </span>
           &nbsp;Overview
         </h1>
@@ -42,10 +43,10 @@ const BudgetOverviewPage = () => {
           Recent{" "}
           <span
             style={{
-              color: `hsl(${budget.color})`,
+              color: `hsl(${budget?.color})`,
             }}
           >
-            {budget.name}
+            {budget?.name}
           </span>{" "}
           Expense <small>({expenses.length} total)</small>
         </h1>

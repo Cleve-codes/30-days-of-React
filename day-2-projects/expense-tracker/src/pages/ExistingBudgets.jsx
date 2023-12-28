@@ -3,6 +3,7 @@ import BudgetItem from "../components/BudgetItem";
 import { MdArrowBack } from "react-icons/md";
 import Table from "../components/Table";
 import Button from "../components/Button";
+import { findBudgetById, getExpensesByBudget } from "../helpers";
 
 export async function loader() {
   const userName = JSON.parse(localStorage.getItem("userName"));
@@ -11,14 +12,33 @@ export async function loader() {
   return { userName, budgets, expenses };
 }
 
+export async function action({ request }) {
+  const data = await request.formData();
+  const { _action, ...values } = Object.fromEntries(data);
+
+  if (_action === "deleteBudget") {
+    // const budget = findBudgetById(values.id);
+    try {
+      const remainingBudgets = JSON.parse(
+        localStorage.getItem("budgets")
+      ).filter((budget) => budget.id !== values.id);
+      console.log(remainingBudgets);
+    } catch (error) {
+      console.log(error);
+    }
+    // localStorage.setItem("budgets", JSON.stringify(remainingBudgets));
+  }
+}
+
 const ExistingBudgets = () => {
   const { userName, budgets, expenses } = useLoaderData();
   const navigate = useNavigate();
 
-  const {id} = useParams();
+  const { id } = useParams();
   const showDelete = id !== undefined;
   const showBudgetName = id === undefined;
-  console.log(id, showBudgetName)
+  // console.log(id, showBudgetName);
+
 
   return (
     <section className="mt-[2%]">
@@ -27,10 +47,12 @@ const ExistingBudgets = () => {
         Existing Budgets
       </h1>
       <div className="budgets">
-        {budgets.map((budget) => (
-          <BudgetItem key={budget.id} budget={budget} showDelete={showDelete} />
+        {budgets.map((budg) => (
+          <BudgetItem key={budg.id} budget={budg} showDelete={showDelete} />
         ))}
       </div>
+      <input type="hidden" name="_action" value="deleteBudget" />
+      <input type="hidden" name="id" value={id} />
       {expenses && expenses.length > 0 ? (
         <div className="grid-md">
           <h1 className="text-[50px] my-4">Recent Expenses</h1>
@@ -51,7 +73,11 @@ const ExistingBudgets = () => {
           Go Back
         </button>
         {expenses?.length > 5 ? (
-          <Button text="View all expenses" to="/home/expense" showDelete={false} />
+          <Button
+            text="View all expenses"
+            to="/home/expense"
+            showDelete={false}
+          />
         ) : null}
       </div>
     </section>

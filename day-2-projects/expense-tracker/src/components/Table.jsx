@@ -33,7 +33,7 @@ const Table = ({ expenses, showBudgetName }) => {
 };
 
 Table.propTypes = {
-  expenses: PropTypes.array.isRequired,
+  expenses: PropTypes.array,
   showBudgetName: PropTypes.bool,
 };
 
