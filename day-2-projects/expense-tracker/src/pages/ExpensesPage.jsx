@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Table from "../components/Table";
 import { toast } from "react-toastify";
@@ -26,27 +26,30 @@ export async function action({ request }) {
 }
 
 const ExpensesPage = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const { expenses } = useLoaderData();
 
   return (
-    <div className="grid-lg">
-      <h1 className="text-[40px] font-bold">All Expenses</h1>
-      {expenses && expenses.length > 0 && (
-        <>
-          <div className="grid-md">
-            <h2 className="text-[30px] font-semibold">
-              Recent Expense <small>({expenses.length} total)</small>
-            </h2>
-            <Table expenses={expenses} />
-          </div>
+    <>
+      <div className="grid-lg">
+        <h1 className="text-[40px] font-bold">All Expenses</h1>
+        {expenses && expenses.length > 0 && (
+          <>
+            <div className="grid-md">
+              <h2 className="text-[30px] font-semibold">
+                Recent Expense <small>({expenses.length} total)</small>
+              </h2>
+              <Table expenses={expenses} />
+            </div>
 
-          <div>
-            <Button text="Go Back" to="/home/budgets" />
-          </div>
-        </>
-      )}
-    </div>
+            <div>
+              <Link text="Go Back" to="/home/budgets" />
+            </div>
+          </>
+        )}
+      </div>
+      <Button text="Go Back" onClick={navigate("/home")} />
+    </>
   );
 };
 

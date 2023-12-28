@@ -1,13 +1,19 @@
 import PropTypes from "prop-types";
 import ExpenseItem from "./ExpenseItem";
 
-const Table = ({ expenses }) => {
+const Table = ({ expenses, showBudget = true }) => {
+  
+  const headers = ["Name", "Amount", "Date", ""];
+  if (showBudget) {
+    headers.splice(3, 0, "Budget");
+  }
+
   return (
     <div className="table">
       <table>
         <thead>
           <tr>
-            {["Name", "Amount", "Date", 'Budget', ''].map((i, index) => (
+            {headers.map((i, index) => (
               <th className="text-[30px]" key={index}>
                 {i}
               </th>

@@ -3,8 +3,9 @@ import Button from "./Button";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { getTotalBudgetById, getTotalExpensesByBudget, wait } from "../helpers";
+import PropTypes from "prop-types";
 
-const BudgetCard = () => {
+const BudgetCard = ({showBudgetCategory = true, budget}) => {
   const { budgets } = useLoaderData();
   const selectRef = useRef();
   const fetcher = useFetcher();
@@ -31,9 +32,9 @@ const BudgetCard = () => {
       // Object.keys(parsedBudgets[0]).includes("name")
     ) {
       // budgetId = parsedBudgets[0].id;
-      parsedBudgets.forEach((budget) => {
-        if (selectedOption && budget.name === selectedOption) {
-          budgetId = budget.id;
+      parsedBudgets.forEach((budg) => {
+        if (selectedOption && budg.name === selectedOption) {
+          budgetId = budg.id;
         }
       });
     }
@@ -94,7 +95,7 @@ const BudgetCard = () => {
         <h1 className="font-semibold text-[25px] ml-[1em] mt-[.25em] sm:ml-[2em]">
           Add New{" "}
           <span>
-            {budgets.length === 1
+            {budget ? budget.name :  budgets.length === 1
               ? `${budgets.map((budg) => budg.name)}`
               : selectedBudget}
           </span>{" "}
@@ -144,7 +145,7 @@ const BudgetCard = () => {
           <input type="hidden" name="_action" value="addExpense" />
           <input type="hidden" name="budgetId" value={budgetId} />
         </div>
-        {budgets?.length > 1 && (
+        {budgets?.length > 1 && showBudgetCategory && (
           <div className="ml-[3em] mt-[2em]">
             <h1 className="font-semibold text-[20px] text-gray-700">
               Budget Category
@@ -160,18 +161,23 @@ const BudgetCard = () => {
               <option>School</option> */}
               {budgets
                 .sort((a, b) => a.createdAt - b.createdAt)
-                .map((budget) => (
-                  <option key={budget.id}>{budget.name}</option>
+                .map((budg) => (
+                  <option key={budg.id}>{budg.name}</option>
                 ))}
             </select>
           </div>
         )}
         <div className="ml-[3em] mt-[2em]">
-          <Button text="Add expense 🪙" disabled={isSubmitting} />
+          <Button className="mb-[1em]" text="Add expense 🪙" disabled={isSubmitting} />
         </div>
       </fetcher.Form>
     </div>
   );
+};
+
+BudgetCard.propTypes = {
+  showBudgetCategory: PropTypes.bool,
+  budget: PropTypes.object,
 };
 
 export default BudgetCard;
