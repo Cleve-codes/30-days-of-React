@@ -3,38 +3,19 @@ import BudgetItem from "../components/BudgetItem";
 import { MdArrowBack } from "react-icons/md";
 import Table from "../components/Table";
 import Button from "../components/Button";
-import { deleteExpenseByExpenseId } from "../helpers";
+import { deleteExpenseByExpenseId, fetchData } from "../helpers";
 
 
 export async function loader() {
-  const userName = JSON.parse(localStorage.getItem("userName"));
-  const budgets = JSON.parse(localStorage.getItem("budgets"));
-  const expenses = JSON.parse(localStorage.getItem("expenses"));
+  const userName = fetchData("userName");
+  const budgets = fetchData("budgets");
+  const expenses = fetchData("expenses");
   return { userName, budgets, expenses };
 }
 
 export async function action({ request }) {
   const data = await request.formData();
   const { _action, ...values } = Object.fromEntries(data);
-
-  if (_action === "deleteBudget") {
-    try {
-      console.log(_action, values)
-      const remainingBudgets = JSON.parse(
-        localStorage.getItem("budgets")
-      ).filter((budget) => budget.id !== values.id);
-      localStorage.setItem("budgets", JSON.stringify(remainingBudgets));
-
-      const remainingExpenses = JSON.parse(
-        localStorage.getItem("expenses")
-      ).filter((expense) => expense.budgetId !== values.id);
-      localStorage.setItem("expenses", JSON.stringify(remainingExpenses));
-
-      return redirect("/home/budgets");
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   if (_action === "deleteExpense") {
     try {
@@ -69,7 +50,7 @@ const ExistingBudgets = () => {
           <BudgetItem key={budg.id} budget={budg} budgetId={id} showDelete={showDelete} />
         ))}
       </div>
-      <input type="hidden" name="_action" value="deleteBudget" />
+      <input type="hidden" name="_action" value="deleteExpense" />
       <input type="hidden" name="id" value={id} />
       {expenses && expenses.length > 0 ? (
         <div className="grid-md">

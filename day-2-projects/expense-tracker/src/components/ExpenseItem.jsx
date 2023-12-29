@@ -8,13 +8,23 @@ import {
 } from "../helpers";
 import { Link, useFetcher } from "react-router-dom";
 
-const ExpenseItem = ({ expense, showBudgetName }) => {
+const ExpenseItem = ({ expense, showBudgetName, onDelete }) => {
   const budgetName = findBudgetById(expense.budgetId)?.name;
   const budgdetColor = findBudgetColorById(expense.budgetId);
   //   console.log(expense);
 
   const fetcher = useFetcher();
-  
+
+  const handleDelete = async (e) => {
+    try {
+      e.preventDefault();
+      // const data = await fetcher(e.target);
+      // console.log(data);
+      onDelete(expense.id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -33,7 +43,7 @@ const ExpenseItem = ({ expense, showBudgetName }) => {
         </td>
       )}
       <td>
-        <fetcher.Form method="post">
+        <fetcher.Form method="post" onClick={handleDelete}>
           <input type="hidden" name="_action" value="deleteExpense" />
           <input type="hidden" name="expenseId" value={expense.id} />
           <button type="submit" className="hover:transform hover:scale-200">

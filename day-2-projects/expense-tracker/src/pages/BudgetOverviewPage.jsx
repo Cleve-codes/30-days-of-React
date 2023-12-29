@@ -1,5 +1,5 @@
 import { redirect, useNavigate, useParams } from "react-router-dom";
-import { findBudgetById, getExpensesByBudget } from "../helpers";
+import { deleteExpenseByExpenseId, findBudgetById, getExpensesByBudget } from "../helpers";
 import BudgetItem from "../components/BudgetItem";
 import BudgetCard from "../components/BudgetCard";
 import Table from "../components/Table";
@@ -32,10 +32,7 @@ export async function action({ request }) {
 
   if (_action === "deleteExpense") {
     try {
-      const remainingExpenses = JSON.parse(
-        localStorage.getItem("expenses")
-      ).filter((expense) => expense.id !== values.id);
-      localStorage.setItem("expenses", JSON.stringify(remainingExpenses));
+      deleteExpenseByExpenseId(values.id);
       // console.log(remainingExpenses)
     } catch (error) {
       console.log(error);

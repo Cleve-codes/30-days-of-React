@@ -1,14 +1,18 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 import ExpenseItem from "./ExpenseItem";
 
-const Table = ({ expenses, showBudgetName }) => {
+const Table = ({ expenses: initialExpenses, showBudgetName }) => {
+  const [expenses, setExpenses] = useState(initialExpenses);
 
   const headers = ["Name", "Amount", "Date", ""];
   if (showBudgetName) {
     headers.splice(3, 0, "Budget");
   }
 
-  // console.log(expenses)
+  const handleDelete = (id) => {
+    setExpenses(expenses.filter((expense) => expense.id !== id));
+  };
 
   return (
     <div className="table">
@@ -25,7 +29,11 @@ const Table = ({ expenses, showBudgetName }) => {
         <tbody>
           {expenses.map((expense) => (
             <tr className="text-[20px]" key={expense.id}>
-              <ExpenseItem expense={expense} showBudgetName={showBudgetName} />
+              <ExpenseItem
+                expense={expense}
+                showBudgetName={showBudgetName}
+                onDelete={handleDelete}
+              />
             </tr>
           ))}
         </tbody>
