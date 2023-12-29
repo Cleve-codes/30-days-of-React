@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { Link, useFetcher } from "react-router-dom";
-// import BudgetCard from "./BudgetCard";
 
 const ExpenseCard = () => {
   const fetcher = useFetcher();

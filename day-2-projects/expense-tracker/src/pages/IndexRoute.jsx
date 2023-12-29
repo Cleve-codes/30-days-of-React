@@ -25,7 +25,7 @@ const IndexRoute = () => {
       <div>
         <div className="mt-[2em] mr-[15%] grid grid-cols-1 2xl:grid-cols-2 2xl:justify-center gap-[2.5em]">
           <ExpenseCard />
-          {budgets?.length > 0 && <BudgetCard />}
+          {budgets?.length > 0 && <BudgetCard id={undefined} />}
         </div>
       </div>
     </>

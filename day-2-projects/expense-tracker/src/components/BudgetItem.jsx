@@ -6,19 +6,32 @@ import {
 import PropTypes from "prop-types";
 import { HiMiniBanknotes } from "react-icons/hi2";
 import Button from "./Button";
+// import { useParams } from "react-router-dom";
 
+const BudgetItem = ({ budget, showDelete, budgetId }) => {
+  // let { id, name, amount, color } = budget;
+  if (budget){
+    var { id, name, amount, color } = budget;
+  }
+  let spent = getTotalExpensesByBudget(id);
 
-const BudgetItem = ({ budget, showDelete }) => {
-  const { id, name, amount, color } = budget;
-  const spent = getTotalExpensesByBudget(id);
+  // const { budgetId } = useParams();
+  if (budgetId !== undefined) {
+    id = budgetId;
+    name = budget.name;
+    amount = budget.amount;
+    color = budget.color;
+    spent = getTotalExpensesByBudget(id);
+  }
+  console.log(budgetId);
 
   const handleDelete = () => {
-    const remainingBudgets = JSON.parse(
-      localStorage.getItem("budgets")
-    ).filter((budget) => budget.id !== id);
+    const remainingBudgets = JSON.parse(localStorage.getItem("budgets")).filter(
+      (budget) => budget.id !== id
+    );
     // console.log(remainingBudgets)
     localStorage.setItem("budgets", JSON.stringify(remainingBudgets));
-  }
+  };
 
   return (
     <>

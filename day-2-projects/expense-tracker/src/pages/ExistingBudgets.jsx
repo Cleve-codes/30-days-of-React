@@ -48,7 +48,7 @@ const ExistingBudgets = () => {
       </h1>
       <div className="budgets">
         {budgets.map((budg) => (
-          <BudgetItem key={budg.id} budget={budg} showDelete={showDelete} />
+          <BudgetItem key={budg.id} budget={budg} budgetId={id} showDelete={showDelete} />
         ))}
       </div>
       <input type="hidden" name="_action" value="deleteBudget" />

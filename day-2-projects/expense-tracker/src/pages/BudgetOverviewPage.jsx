@@ -31,10 +31,10 @@ const BudgetOverviewPage = () => {
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 items-start">
           <>
-            <BudgetItem budget={budget} showDelete={showDelete} />
+            <BudgetItem budget={budget} showDelete={showDelete} budgetId={budgetId} />
           </>
           <div className="mr-[5%]">
-            <BudgetCard showBudgetCategory={false} budget={budget} />
+            <BudgetCard showBudgetCategory={false} budget={budget} id={budgetId} />
           </div>
         </div>
       </div>
