@@ -1,9 +1,10 @@
-import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { redirect, useLoaderData, useNavigate, useParams } from "react-router-dom";
 import BudgetItem from "../components/BudgetItem";
 import { MdArrowBack } from "react-icons/md";
 import Table from "../components/Table";
 import Button from "../components/Button";
-import { findBudgetById, getExpensesByBudget } from "../helpers";
+import { deleteExpenseByExpenseId } from "../helpers";
+
 
 export async function loader() {
   const userName = JSON.parse(localStorage.getItem("userName"));
@@ -17,16 +18,33 @@ export async function action({ request }) {
   const { _action, ...values } = Object.fromEntries(data);
 
   if (_action === "deleteBudget") {
-    // const budget = findBudgetById(values.id);
     try {
+      console.log(_action, values)
       const remainingBudgets = JSON.parse(
         localStorage.getItem("budgets")
       ).filter((budget) => budget.id !== values.id);
-      console.log(remainingBudgets);
+      localStorage.setItem("budgets", JSON.stringify(remainingBudgets));
+
+      const remainingExpenses = JSON.parse(
+        localStorage.getItem("expenses")
+      ).filter((expense) => expense.budgetId !== values.id);
+      localStorage.setItem("expenses", JSON.stringify(remainingExpenses));
+
+      return redirect("/home/budgets");
     } catch (error) {
       console.log(error);
     }
-    // localStorage.setItem("budgets", JSON.stringify(remainingBudgets));
+  }
+
+  if (_action === "deleteExpense") {
+    try {
+      const remainingExpenses = deleteExpenseByExpenseId(values.id);
+      localStorage.setItem("expenses", JSON.stringify(remainingExpenses));
+
+      return redirect("/home/expenses");
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 

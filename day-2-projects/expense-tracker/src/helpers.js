@@ -58,6 +58,15 @@ export const deleteExpenseByBudgetId = (budgetId) => {
   return localStorage.setItem("expenses", JSON.stringify(newExpenses));
 }
 
+
+// Delete expense by expenseId
+export const deleteExpenseByExpenseId = (expenseId) => {
+  const expenses = fetchData("expenses") ?? [];
+
+  const newExpenses = expenses.filter((expense) => expense.id !== expenseId);
+  return localStorage.setItem("expenses", JSON.stringify(newExpenses));
+}
+
 // USER FUNCTIONS
 // Create New User
 export const createUser = async (name, email) => {

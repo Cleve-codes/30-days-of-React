@@ -48,7 +48,7 @@ const ExpensesPage = () => {
           </>
         )}
       </div>
-      <Button text="Go Back" onClick={navigate("/home")} />
+      <Button text="Go Back" onClick={() => navigate("/home/budgets")} />
     </>
   );
 };

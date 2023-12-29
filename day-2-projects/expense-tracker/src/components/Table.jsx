@@ -8,6 +8,8 @@ const Table = ({ expenses, showBudgetName }) => {
     headers.splice(3, 0, "Budget");
   }
 
+  // console.log(expenses)
+
   return (
     <div className="table">
       <table>

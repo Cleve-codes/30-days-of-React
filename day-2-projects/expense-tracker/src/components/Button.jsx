@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { FaRegTrashAlt } from "react-icons/fa";
 
 const Button = ({ text, to, onClick, disabled, icon, showDelete }) => {
-
   // const {id} = useParams()
   // console.log(id)
 
@@ -16,10 +15,13 @@ const Button = ({ text, to, onClick, disabled, icon, showDelete }) => {
         rounded-2xl hover:bg-opacity-70 
         transition font-semibold shadow-md"
         onClick={onClick}
+        // style={{
+        //   backgroundColor: `hsl(${})`
+        // }}
       >
         {showDelete === true ? (
           <>
-            Delete Expense
+            Delete Budget
             <FaRegTrashAlt />
           </>
         ) : (
@@ -39,6 +41,9 @@ const Button = ({ text, to, onClick, disabled, icon, showDelete }) => {
         transition font-semibold shadow-md mb-[1em]"
         onClick={onClick}
         disabled={disabled}
+        // style={{
+        //   backgroundColor: `hsl(${})`
+        // }}
       >
         {disabled ? "Submitting..." : showDelete ? "Delete Budget" : text}
       </button>

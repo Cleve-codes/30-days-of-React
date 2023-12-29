@@ -1,4 +1,5 @@
 import {
+  findBudgetById,
   formatCurrency,
   formatPercentage,
   getTotalExpensesByBudget,
@@ -10,20 +11,21 @@ import Button from "./Button";
 
 const BudgetItem = ({ budget, showDelete, budgetId }) => {
   // let { id, name, amount, color } = budget;
-  if (budget){
-    var { id, name, amount, color } = budget;
-  }
-  let spent = getTotalExpensesByBudget(id);
 
-  // const { budgetId } = useParams();
-  if (budgetId !== undefined) {
+  if (budget && budgetId === undefined) {
+    var { id, name, amount, color } = budget;
+    // console.log("true")
+  } else {
     id = budgetId;
-    name = budget.name;
-    amount = budget.amount;
-    color = budget.color;
-    spent = getTotalExpensesByBudget(id);
+    amount = findBudgetById(id)?.amount;
+    name = findBudgetById(id)?.name;
+    color = findBudgetById(id)?.color;
   }
-  console.log(budgetId);
+
+  let spent = getTotalExpensesByBudget(id);
+  // console.log(budget)
+
+  // console.log(budgetId, id);
 
   const handleDelete = () => {
     const remainingBudgets = JSON.parse(localStorage.getItem("budgets")).filter(
@@ -45,7 +47,8 @@ const BudgetItem = ({ budget, showDelete, budgetId }) => {
           <h1 className="text-[25px] font-bold">{name}</h1>
           <p className="text-[20px]">{formatCurrency(amount)} Budgeted</p>
         </div>
-
+        <input type="hidden" name="_action" value="deleteBudget" />
+        <input type="hidden" name="id" value={id} />
         <>
           <progress max={amount} value={spent}>
             {formatPercentage(spent / amount)}
