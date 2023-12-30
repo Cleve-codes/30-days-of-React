@@ -1,37 +1,51 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { findBudgetById, getExpensesByBudget } from "../helpers";
 import BudgetItem from "../components/BudgetItem";
 import BudgetCard from "../components/BudgetCard";
 import Table from "../components/Table";
 import { useEffect, useState } from "react";
 
+export async function loader() {
+  const expenses = JSON.parse(localStorage.getItem("expenses")) ?? [];
+  return { expenses };
+}
 
 const BudgetOverviewPage = () => {
   let { id } = useParams();
-  const [expenses, setExpenses] = useState([]);
+  const loaderData = useLoaderData();
+  const [expenses, setExpenses] = useState(loaderData.expenses);
   const budget = findBudgetById(id);
   const navigate = useNavigate();
 
-  if(!budget) {
-    navigate(-1)
+  if (!budget) {
+    navigate(-1);
     return null;
   }
 
-  useEffect(() => {
-    setExpenses(getExpensesByBudget(id));
-  }, [id]);
   // console.log(budget);
 
   const showDelete = id !== undefined;
   const showBudgetName = id === undefined;
   // console.log(showBudgetName, budgetId)
-  console.log(expenses)
+  console.log(expenses);
 
   const handleDelete = (id) => {
     const updatedExpenses = expenses.filter((expense) => expense.id !== id);
     setExpenses(updatedExpenses);
     localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
   };
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setExpenses(getExpensesByBudget(id));
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [id]);
 
   return (
     <section>
@@ -65,10 +79,14 @@ const BudgetOverviewPage = () => {
           >
             {budget?.name}
           </span>{" "}
-          Expense <small>({expenses.length} total)</small>
+          Expense <small>({expenses.filter((expense) => expense.budgetId === id).length} total)</small>
         </h1>
         <div className="grid-md">
-          <Table expenses={expenses} showBudgetName={showBudgetName} onDelete={handleDelete} />
+          <Table
+            expenses={expenses.filter((expense) => expense.budgetId === id)}
+            showBudgetName={showBudgetName}
+            onDelete={handleDelete}
+          />
         </div>
       </div>
       <div className="mt-[1em]">

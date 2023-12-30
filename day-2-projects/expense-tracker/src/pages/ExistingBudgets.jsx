@@ -8,6 +8,7 @@ import BudgetItem from "../components/BudgetItem";
 import { MdArrowBack } from "react-icons/md";
 import Table from "../components/Table";
 import Button from "../components/Button";
+import { useState } from "react";
 // import { fetchData } from "../helpers";
 
 export async function loader() {
@@ -43,7 +44,9 @@ export async function action({ request }) {
 }
 
 const ExistingBudgets = () => {
-  const { userName, budgets, expenses } = useLoaderData();
+  const loaderData = useLoaderData();
+  const { userName, budgets } = loaderData;
+  const [expenses, setExpenses] = useState(loaderData.expenses);
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -54,7 +57,12 @@ const ExistingBudgets = () => {
   if (budgets === undefined) {
     return navigate(-1);
   }
-  console.log(typeof budgets, budgets)
+
+  const handleDelete = (id) => {
+    const updatedExpenses = expenses.filter((expense) => expense.id !== id);
+    setExpenses(updatedExpenses);
+    localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+  };
 
   return (
     <section className="mt-[2%]">
@@ -82,6 +90,7 @@ const ExistingBudgets = () => {
               .sort((a, b) => b.createdAt - a.createdAt)
               .slice(0, 5)}
             showBudgetName={showBudgetName}
+            onDelete={handleDelete}
           />
         </div>
       ) : null}

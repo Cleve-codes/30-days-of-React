@@ -1,4 +1,4 @@
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
 import Button from "../components/Button";
 import Table from "../components/Table";
 import { toast } from "react-toastify";
@@ -31,6 +31,11 @@ const ExpensesPage = () => {
   const navigate = useNavigate();
   const loaderData = useLoaderData()
   const [expenses, setExpenses] = useState(loaderData.expenses);
+  const { id } = useParams();
+
+  const showBudgetName = id == undefined;
+  // console.log(id, showBudgetName)
+
 
   const handleDelete = (id) => {
     const updatedExpenses = expenses.filter((expense) => expense.id !== id);
@@ -48,7 +53,7 @@ const ExpensesPage = () => {
               <h2 className="text-[30px] font-semibold">
                 Recent Expense <small>({expenses.length} total)</small>
               </h2>
-              <Table expenses={expenses} onDelete={handleDelete} />
+              <Table expenses={expenses} onDelete={handleDelete} showBudgetName={showBudgetName} />
             </div>
 
             <div>

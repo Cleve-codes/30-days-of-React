@@ -57,7 +57,7 @@ const router = createBrowserRouter([
         path: ":id",
         element: <BudgetOverviewPage />,
         loader: expensesLoader,
-        action: expensesAction,
+        action: homePageAction,
         errorElement: <ErrorPage />,
       },
     ],
