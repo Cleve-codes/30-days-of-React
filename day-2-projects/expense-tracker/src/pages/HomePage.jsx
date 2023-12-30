@@ -18,7 +18,9 @@ export async function action({ request }) {
     try {
       localStorage.setItem("userName", JSON.stringify(values.userName));
       localStorage.setItem("budgets", JSON.stringify([]));
+      localStorage.setItem("expenses", JSON.stringify([]));
       return toast.success(`Welcome ${values.userName}`);
+
     } catch (error) {
       throw new Error("There was a problem creating your account");
     }

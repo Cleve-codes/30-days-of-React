@@ -3,6 +3,7 @@ import Button from "../components/Button";
 import Table from "../components/Table";
 import { toast } from "react-toastify";
 import { deleteExpenseByBudgetId } from "../helpers";
+import { useState } from "react";
 
 export async function loader() {
   const expenses = JSON.parse(localStorage.getItem("expenses"));
@@ -25,9 +26,17 @@ export async function action({ request }) {
   return null;
 }
 
+
 const ExpensesPage = () => {
   const navigate = useNavigate();
-  const { expenses } = useLoaderData();
+  const loaderData = useLoaderData()
+  const [expenses, setExpenses] = useState(loaderData.expenses);
+
+  const handleDelete = (id) => {
+    const updatedExpenses = expenses.filter((expense) => expense.id !== id);
+    setExpenses(updatedExpenses);
+    localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+  };
 
   return (
     <>
@@ -39,7 +48,7 @@ const ExpensesPage = () => {
               <h2 className="text-[30px] font-semibold">
                 Recent Expense <small>({expenses.length} total)</small>
               </h2>
-              <Table expenses={expenses} />
+              <Table expenses={expenses} onDelete={handleDelete} />
             </div>
 
             <div>

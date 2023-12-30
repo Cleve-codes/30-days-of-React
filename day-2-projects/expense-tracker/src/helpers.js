@@ -10,7 +10,10 @@ export const generateRandomColor = () => {
 // Save Data in Local Storage
 export const fetchData = (key) => {
   const data = localStorage.getItem(key);
-  return data ? JSON.parse(data) : null;
+  if (!data) {
+    throw new Error(`No data found for key "${key}"`);
+  }
+  return JSON.parse(data);
 };
 
 // Computation Functions

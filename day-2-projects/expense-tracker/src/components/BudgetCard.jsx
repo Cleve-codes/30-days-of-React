@@ -52,9 +52,9 @@ const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
   }
 
 
-  const [disabled, setDisabled] = useState(
-    getTotalBudgetById(budgetId) <= getTotalExpensesByBudget(budgetId) || false
-  );
+  const [disabled, setDisabled] = useState(false)
+  //   getTotalBudgetById(budgetId) <= getTotalExpensesByBudget(budgetId) || false
+  // );
 
   // Check if expense amount is greater than budget amount
   const handleAmountChange = (e) => {

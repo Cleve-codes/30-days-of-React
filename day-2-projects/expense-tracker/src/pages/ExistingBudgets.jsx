@@ -1,15 +1,19 @@
-import { redirect, useLoaderData, useNavigate, useParams } from "react-router-dom";
+import {
+  redirect,
+  useLoaderData,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import BudgetItem from "../components/BudgetItem";
 import { MdArrowBack } from "react-icons/md";
 import Table from "../components/Table";
 import Button from "../components/Button";
-import { fetchData } from "../helpers";
-
+// import { fetchData } from "../helpers";
 
 export async function loader() {
-  const userName = fetchData("userName");
-  const budgets = fetchData("budgets");
-  const expenses = fetchData("expenses");
+  const userName = JSON.parse(localStorage.getItem("userName"));
+  const budgets = JSON.parse(localStorage.getItem("budgets")) ?? [];
+  const expenses = JSON.parse(localStorage.getItem("expenses")) ?? [];
   return { userName, budgets, expenses };
 }
 
@@ -42,16 +46,15 @@ const ExistingBudgets = () => {
   const { userName, budgets, expenses } = useLoaderData();
   const navigate = useNavigate();
 
-  if(!budgets){
-    navigate(-1)
-    return null;
-  }
-
   const { id } = useParams();
   const showDelete = id !== undefined;
   const showBudgetName = id === undefined;
   // console.log(id, showBudgetName);
 
+  if (budgets === undefined) {
+    return navigate(-1);
+  }
+  console.log(typeof budgets, budgets)
 
   return (
     <section className="mt-[2%]">
@@ -61,7 +64,12 @@ const ExistingBudgets = () => {
       </h1>
       <div className="budgets">
         {budgets.map((budg) => (
-          <BudgetItem key={budg.id} budget={budg} budgetId={id} showDelete={showDelete} />
+          <BudgetItem
+            key={budg.id}
+            budget={budg}
+            budgetId={id}
+            showDelete={showDelete}
+          />
         ))}
       </div>
       <input type="hidden" name="_action" value="deleteExpense" />
