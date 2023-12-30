@@ -44,7 +44,11 @@ const ExpenseItem = ({ expense, showBudgetName, onDelete }) => {
         <fetcher.Form method="post" onClick={() => onDelete(expense.id)}>
           <input type="hidden" name="_action" value="deleteExpense" />
           <input type="hidden" name="expenseId" value={expense.id} />
-          <button type="submit" className="hover:transform hover:scale-200">
+          <button
+            type="submit"
+            title="Delete expense"
+            className="hover:transform hover:scale-200"
+          >
             <FaRegTrashAlt className="w-5 h-10 hover:transform hover:scale-200" />
           </button>
         </fetcher.Form>

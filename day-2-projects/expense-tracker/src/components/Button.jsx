@@ -10,6 +10,7 @@ const Button = ({ text, to, onClick, disabled, icon, showDelete }) => {
     return (
       <Link
         to={to}
+        title={showDelete ? "Delete Budget" : text}
         className="cursor-pointer group relative inline-flex items-center gap-1.5 
         px-8 py-4 bg-black bg-opacity-80 text-[#f1f1f1] 
         rounded-2xl hover:bg-opacity-70 
@@ -35,6 +36,7 @@ const Button = ({ text, to, onClick, disabled, icon, showDelete }) => {
   } else {
     return (
       <button
+        title={showDelete ? "Delete Budget" : text}
         className="cursor-pointer group relative inline-flex text-center gap-1.5 
         px-8 py-4 bg-black bg-opacity-80 text-[#f1f1f1] 
         rounded-2xl hover:bg-opacity-70 

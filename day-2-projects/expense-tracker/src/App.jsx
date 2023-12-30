@@ -16,7 +16,10 @@ import ExpensesPage, {
   action as expensesAction,
   loader as expensesLoader,
 } from "./pages/ExpensesPage";
-import BudgetOverviewPage from "./pages/BudgetOverviewPage";
+import BudgetOverviewPage, {
+  action as budgetsAction,
+} from "./pages/BudgetOverviewPage";
+import { HomeProvider } from "./context/HomeContext";
 // import BudgetCard from "./components/BudgetCard";
 
 const router = createBrowserRouter([
@@ -56,8 +59,7 @@ const router = createBrowserRouter([
       {
         path: ":id",
         element: <BudgetOverviewPage />,
-        loader: expensesLoader,
-        action: homePageAction,
+        action: budgetsAction,
         errorElement: <ErrorPage />,
       },
     ],
@@ -71,8 +73,10 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <div>
-      <RouterProvider router={router} />
-      <ToastContainer />
+      <HomeProvider>
+        <RouterProvider router={router} />
+        <ToastContainer />
+      </HomeProvider>
     </div>
   );
 }

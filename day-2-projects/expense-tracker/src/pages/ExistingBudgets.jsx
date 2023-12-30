@@ -88,7 +88,7 @@ const ExistingBudgets = () => {
           <Table
             expenses={expenses
               .sort((a, b) => b.createdAt - a.createdAt)
-              .slice(0, 5)}
+              .slice(0, 7)}
             showBudgetName={showBudgetName}
             onDelete={handleDelete}
           />
@@ -102,7 +102,7 @@ const ExistingBudgets = () => {
           <MdArrowBack />
           Go Back
         </button>
-        {expenses?.length > 5 ? (
+        {expenses?.length > 6 ? (
           <Button
             text="View all expenses"
             to="/home/expense"

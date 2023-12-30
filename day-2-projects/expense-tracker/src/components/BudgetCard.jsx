@@ -2,19 +2,22 @@ import { useFetcher, useLoaderData } from "react-router-dom";
 import Button from "./Button";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import {  getTotalExpensesByBudget, wait } from "../helpers";
+import { getTotalExpensesByBudget, wait } from "../helpers";
 import PropTypes from "prop-types";
 
 const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
-  const { budgets } = useLoaderData();
+  const  budgets  = JSON.parse(localStorage.getItem("budgets")) ?? [];
   const selectRef = useRef();
   const fetcher = useFetcher();
   const formRef = useRef();
   const focusRef = useRef();
   const budgetsPresent = localStorage.getItem("budgets").length > 2;
 
+  // console.log(budgetsPresent, budgets)
+
   const isSubmitting = fetcher.state === "submitting";
-  let selectedOption = budget?.name || selectRef.current?.value || (budgets && budgets[0]?.name);
+  let selectedOption =
+    budget?.name || selectRef.current?.value || (budgets && budgets[0]?.name);
 
   const [selectedBudget, setSelectedBudget] = useState(
     selectedOption ? selectedOption : budgets ? [-1].name : null
@@ -43,16 +46,13 @@ const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
     }
   }
 
-  
-
   function getTotalBudgetById(budgetId) {
     const budgets = JSON.parse(localStorage.getItem("budgets"));
     const budget = budgets.find((budg) => budg.id === budgetId);
     return budget ? budget.amount : 0;
   }
 
-
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(false);
   //   getTotalBudgetById(budgetId) <= getTotalExpensesByBudget(budgetId) || false
   // );
 
@@ -97,6 +97,7 @@ const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
     setSelectedBudget(selectedOption);
   };
 
+  
   return (
     <div className="form-wrapper items-center">
       <fetcher.Form
@@ -107,7 +108,9 @@ const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
         <h1 className="font-semibold text-[25px] ml-[1em] mt-[.25em] sm:ml-[2em]">
           Add New{" "}
           <span>
-            {budget ? budget.name : budgets?.length === 1
+            {budget
+              ? budget.name
+              : budgets?.length === 1
               ? `${budgets.map((budg) => budg.name)}`
               : selectedBudget}
           </span>{" "}
@@ -130,7 +133,7 @@ const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
               autoComplete="on"
               required
               placeholder="e.g Groceries"
-            // disabled={disabled}
+              // disabled={disabled}
             ></input>
           </div>
           <div className="flex flex-col mx-[2em] sm:ml-[2em] gap-[.5em]">
@@ -180,7 +183,12 @@ const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
           </div>
         )}
         <div className="ml-[3em] mt-[2em]">
-          <Button className="mb-[1em]" text="Add expense 🪙" disabled={isSubmitting} />
+          <Button
+            className="mb-[1em]"
+            text="Add expense 🪙"
+            disabled={isSubmitting}
+            
+          />
         </div>
       </fetcher.Form>
     </div>
