@@ -1,61 +1,37 @@
-import { redirect, useNavigate, useParams } from "react-router-dom";
-import { deleteExpenseByExpenseId, findBudgetById, getExpensesByBudget } from "../helpers";
+import { useNavigate, useParams } from "react-router-dom";
+import { findBudgetById, getExpensesByBudget } from "../helpers";
 import BudgetItem from "../components/BudgetItem";
 import BudgetCard from "../components/BudgetCard";
 import Table from "../components/Table";
 import { useEffect, useState } from "react";
 
-export async function action({ request }) {
-  const data = await request.formData();
-  const { _action, ...values } = Object.fromEntries(data);
-
-  if (_action === "deleteBudget") {
-    try {
-      console.log(_action, values)
-      const remainingBudgets = JSON.parse(
-        localStorage.getItem("budgets")
-      ).filter((budget) => budget.id !== values.id);
-      localStorage.setItem("budgets", JSON.stringify(remainingBudgets));
-
-      // Delete associated expenses
-      const remainingExpenses = JSON.parse(
-        localStorage.getItem("expenses")
-      ).filter((expense) => expense.budgetId !== values.id);
-      localStorage.setItem("expenses", JSON.stringify(remainingExpenses));
-
-      // Redirect to 'home/budgets'
-      redirect("/home/budgets");
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  if (_action === "deleteExpense") {
-    try {
-      deleteExpenseByExpenseId(values.id);
-      // console.log(remainingExpenses)
-    } catch (error) {
-      console.log(error);
-    }
-  }
-return null;
-}
 
 const BudgetOverviewPage = () => {
   let { id } = useParams();
-  const [expenses, setExpenses] = useState([])
+  const [expenses, setExpenses] = useState([]);
   const budget = findBudgetById(id);
-  // console.log(budget);
+  const navigate = useNavigate();
+
+  if(!budget) {
+    navigate(-1)
+    return null;
+  }
 
   useEffect(() => {
-    setExpenses(getExpensesByBudget(id))
-  }, [id])
-
-  const navigate = useNavigate();
+    setExpenses(getExpensesByBudget(id));
+  }, [id]);
+  // console.log(budget);
 
   const showDelete = id !== undefined;
   const showBudgetName = id === undefined;
   // console.log(showBudgetName, budgetId)
+  console.log(expenses)
+
+  const handleDelete = (id) => {
+    const updatedExpenses = expenses.filter((expense) => expense.id !== id);
+    setExpenses(updatedExpenses);
+    localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+  };
 
   return (
     <section>
@@ -92,7 +68,7 @@ const BudgetOverviewPage = () => {
           Expense <small>({expenses.length} total)</small>
         </h1>
         <div className="grid-md">
-          <Table expenses={expenses} showBudgetName={showBudgetName} />
+          <Table expenses={expenses} showBudgetName={showBudgetName} onDelete={handleDelete} />
         </div>
       </div>
       <div className="mt-[1em]">

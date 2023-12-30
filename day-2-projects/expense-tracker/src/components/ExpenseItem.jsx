@@ -15,16 +15,14 @@ const ExpenseItem = ({ expense, showBudgetName, onDelete }) => {
 
   const fetcher = useFetcher();
 
-  const handleDelete = async (e) => {
-    try {
-      e.preventDefault();
-      // const data = await fetcher(e.target);
-      // console.log(data);
-      onDelete(expense.id);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const handleDelete = async (e) => {
+  //   try {
+  //     e.preventDefault();
+  //     onDelete(expense.id);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <>
@@ -43,7 +41,7 @@ const ExpenseItem = ({ expense, showBudgetName, onDelete }) => {
         </td>
       )}
       <td>
-        <fetcher.Form method="post" onClick={handleDelete}>
+        <fetcher.Form method="post" onClick={() => onDelete(expense.id)}>
           <input type="hidden" name="_action" value="deleteExpense" />
           <input type="hidden" name="expenseId" value={expense.id} />
           <button type="submit" className="hover:transform hover:scale-200">
@@ -58,6 +56,7 @@ const ExpenseItem = ({ expense, showBudgetName, onDelete }) => {
 ExpenseItem.propTypes = {
   expense: PropTypes.object,
   showBudgetName: PropTypes.bool,
+  onDelete: PropTypes.func,
 };
 
 export default ExpenseItem;

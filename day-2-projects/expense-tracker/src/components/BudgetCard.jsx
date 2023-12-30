@@ -24,6 +24,9 @@ const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
 
   // Dynamically set budgetId
   let budgetId = "";
+  if (id !== undefined) {
+    budgetId = id;
+  }
   if (budgetsPresent) {
     const parsedBudgets = JSON.parse(localStorage.getItem("budgets"));
     if (
@@ -40,9 +43,7 @@ const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
     }
   }
 
-  if(id !== undefined){
-    budgetId = id;
-  }
+  
 
   function getTotalBudgetById(budgetId) {
     const budgets = JSON.parse(localStorage.getItem("budgets"));

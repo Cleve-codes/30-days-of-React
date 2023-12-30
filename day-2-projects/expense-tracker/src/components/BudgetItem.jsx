@@ -1,4 +1,5 @@
 import {
+  deleteExpenseByBudgetId,
   findBudgetById,
   formatCurrency,
   formatPercentage,
@@ -24,15 +25,13 @@ const BudgetItem = ({ budget, showDelete, budgetId }) => {
 
   let spent = getTotalExpensesByBudget(id);
   // console.log(budget)
-
+  
   // console.log(budgetId, id);
 
   const handleDelete = () => {
-    const remainingBudgets = JSON.parse(localStorage.getItem("budgets")).filter(
-      (budget) => budget.id !== id
-    );
+    const remainingExpenses = deleteExpenseByBudgetId(id);
     // console.log(remainingBudgets)
-    localStorage.setItem("budgets", JSON.stringify(remainingBudgets));
+    localStorage.setItem("expenses", JSON.stringify(remainingExpenses));
   };
 
   return (

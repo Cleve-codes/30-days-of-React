@@ -5,6 +5,8 @@ import BudgetCard from "../components/BudgetCard";
 const IndexRoute = () => {
   const { userName, budgets } = useLoaderData();
 
+  
+
   return (
     <>
       <div>
