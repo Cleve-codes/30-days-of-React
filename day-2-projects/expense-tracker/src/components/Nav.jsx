@@ -1,8 +1,21 @@
-import { Form } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import { FaRegTrashAlt } from "react-icons/fa";
 import Logo from "../assets/logomark.svg";
+import { useHomeContext } from "../context/HomeContext";
 
 const Nav = () => {
+  const { deleteUser } = useHomeContext();
+  const navigate = useNavigate();
+
+  const handleSumit = (e) => {
+    if (!confirm("Delete user and all data?")) {
+      e.preventDefault();
+      return;
+    }
+    deleteUser();
+    navigate("/home");
+  };
+
   return (
     <nav className="flex  flex-row leading-normal items-center justify-between gap-2">
       <div className="flex flex-row gap-4 items-center">
@@ -10,15 +23,9 @@ const Nav = () => {
         <h1 className="font-bold text-[25px]">HomeBudget</h1>
       </div>
 
-      <Form
-        method="post"
-        action="/"
+      <form
+        onSubmit={handleSumit}
         className="border-2 border-red-500 mr-[5%] rounded-xl"
-        onSubmit={(e) => {
-          if (!confirm("Delete user and all data?")) {
-            e.preventDefault();
-          }
-        }}
       >
         <button
           type="submit"
@@ -31,7 +38,7 @@ const Nav = () => {
           <FaRegTrashAlt className="text-red-500" />
         </button>
         <input type="hidden" name="_action" value="deleteUser"></input>
-      </Form>
+      </form>
     </nav>
   );
 };

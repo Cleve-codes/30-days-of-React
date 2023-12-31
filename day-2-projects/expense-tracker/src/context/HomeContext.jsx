@@ -33,6 +33,18 @@ const reducer = (state, action) => {
         ...state,
         budgets: action.payload,
       };
+
+    case "LOAD_EXPENSES":
+      return {
+        ...state,
+        expenses: action.payload,
+      };
+
+    case "DELETE_USER":
+      return {
+        initialState,
+      };
+
     default:
       return state;
   }
@@ -85,6 +97,13 @@ function HomeProvider({ children }) {
       budgetId: budgetId,
     };
 
+    const deleteUser = () => {
+      dispatch({ type: "DELETE_USER" });
+      localStorage.removeItem("userName");
+      localStorage.removeItem("budgets");
+      localStorage.removeItem("expenses");
+    };
+
     dispatch({ type: "ADD_EXPENSE", payload: newExpense });
 
     //Save to local storage
@@ -122,7 +141,15 @@ function HomeProvider({ children }) {
 
   return (
     <HomeContext.Provider
-      value={{ expenses, budgets, userName, addUser, addBudget, addExpense }}
+      value={{
+        expenses,
+        budgets,
+        userName,
+        addUser,
+        addBudget,
+        addExpense,
+        deleteUser,
+      }}
     >
       {children}
     </HomeContext.Provider>

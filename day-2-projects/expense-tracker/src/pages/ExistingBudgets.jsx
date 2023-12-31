@@ -11,7 +11,6 @@ import Button from "../components/Button";
 import { useState } from "react";
 import { useHomeContext } from "../context/HomeContext";
 
-
 export async function action({ request }) {
   const data = await request.formData();
   const { _action, ...values } = Object.fromEntries(data);
@@ -38,16 +37,15 @@ export async function action({ request }) {
 }
 
 const ExistingBudgets = () => {
-  const contextData = useHomeContext()
-  const { userName, budgets } = contextData
+  const contextData = useHomeContext();
+  const { userName, budgets } = contextData;
   const [expenses, setExpenses] = useState(contextData.expenses);
   const navigate = useNavigate();
-  console.log(contextData)
+  console.log(contextData);
 
   const { id } = useParams();
   const showDelete = id !== undefined;
   const showBudgetName = id === undefined;
-  // console.log(id, showBudgetName);
 
   if (budgets === undefined) {
     return navigate(-1);
@@ -82,7 +80,7 @@ const ExistingBudgets = () => {
           <h1 className="text-[50px] my-4">Recent Expenses</h1>
           <Table
             expenses={expenses
-              .sort((a, b) => a.createdAt - b.createdAt)
+              .sort((a, b) => b.createdAt - a.createdAt)
               .slice(0, 7)}
             showBudgetName={showBudgetName}
             onDelete={handleDelete}
