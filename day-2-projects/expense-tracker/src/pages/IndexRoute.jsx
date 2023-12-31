@@ -1,11 +1,11 @@
-import { useLoaderData } from "react-router-dom";
 import ExpenseCard from "../components/ExpenseCard";
 import BudgetCard from "../components/BudgetCard";
+import { useHomeContext } from "../context/HomeContext";
 
 const IndexRoute = () => {
-  const { userName, budgets } = useLoaderData();
-
-  
+  const { userName, budgets } = useHomeContext();
+  // const userName = user?.userName;
+  console.log("userName:",userName ,"Budgets:", budgets);
 
   return (
     <>

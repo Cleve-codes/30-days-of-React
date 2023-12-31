@@ -1,11 +1,15 @@
-import { useEffect, useRef } from "react";
-import { Link, useFetcher } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { useHomeContext } from "../context/HomeContext";
+import { toast } from "react-toastify";
+import { wait } from "../helpers";
 
 const ExpenseCard = () => {
-  const fetcher = useFetcher();
-  const isSubmitting = fetcher.state === "submitting";
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { addBudget, budgets } = useHomeContext();
 
-  const budgetsPresent = localStorage.getItem("budgets").length > 2;
+  const budgetsPresent = budgets.length >= 1;
+  console.log(budgets, budgetsPresent);
 
   const formRef = useRef();
   const focusRef = useRef();
@@ -17,14 +21,30 @@ const ExpenseCard = () => {
     }
   }, [isSubmitting]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    const data = new FormData(e.target);
+    try {
+      await wait(2000);
+      await addBudget(data.get("budget"), data.get("budgetAmount"));
+      return toast.success(`Budget created succesfully`);
+    } catch (e) {
+      return toast.error(`Error creating budget`);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="form-wrapper">
-      <fetcher.Form
+      <form
         method="post"
         ref={formRef}
         name="newBudget"
         id="newBudget"
-        className="bg-gray-300 rounded-xl shadow-2xl lg:p-2 sm:p-4"
+        className="bg-gray-300 rounded-xl shadow-2xl lg:p-2 sm:p-4 min-w-[3/4]"
+        onSubmit={handleSubmit}
       >
         <h1 className="font-semibold text-[25px] ml-0 sm:ml-[2em] xs:text-center xs:mt-[.25em]">
           Create a budget
@@ -80,7 +100,7 @@ const ExpenseCard = () => {
                 "
               type="submit"
             >
-             Add A Budget 🪙
+              {isSubmitting ? "Submitting..." : `Add A Budget 🪙`}
             </button>
           </div>
           {budgetsPresent && (
@@ -98,7 +118,7 @@ const ExpenseCard = () => {
             </div>
           )}
         </div>
-      </fetcher.Form>
+      </form>
     </div>
   );
 };

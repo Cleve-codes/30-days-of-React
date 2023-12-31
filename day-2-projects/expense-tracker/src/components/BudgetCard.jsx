@@ -4,9 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { getTotalExpensesByBudget, wait } from "../helpers";
 import PropTypes from "prop-types";
+import { useHomeContext } from "../context/HomeContext";
 
 const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
-  const  budgets  = JSON.parse(localStorage.getItem("budgets")) ?? [];
+  const { budgets, expenses , addExpense }  = useHomeContext() 
+  // console.log(budgets, expenses, addExpense)
   const selectRef = useRef();
   const fetcher = useFetcher();
   const formRef = useRef();

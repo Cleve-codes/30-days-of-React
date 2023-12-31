@@ -1,13 +1,28 @@
-import { Form } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaGithub, FaGoogle, FaTwitter } from "react-icons/fa";
 import { HiUserPlus } from "react-icons/hi2";
+import { useHomeContext } from "../context/HomeContext";
 
 const Login = () => {
+  const { addUser } = useHomeContext();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const userName = data.get("userName");
+    const email = data.get("email");
+    addUser(userName, email);
+    navigate("/home");
+  };
+
   return (
-    <Form
-    method="post"
-    action="/home"
-     className="shadow-md rounded-xl h-max-[700px] w-max-[510px] mt-[4em] bg-login text-loginTxt flex flex-col items-center">
+    <form
+      // method="post"
+      // action="/home"
+      onSubmit={handleSubmit}
+      className="shadow-md rounded-xl h-max-[700px] w-max-[510px] mt-[4em] bg-login text-loginTxt flex flex-col items-center"
+    >
       <h1 className="mt-[3rem] text-[30px] font-bold">Create Account</h1>
       <div className="flex flex-col w-full p-[4rem]">
         <label htmlFor="username" id="username">
@@ -66,7 +81,7 @@ const Login = () => {
           Dont have an account? <span className="text-loginTxt">Sign up</span>
         </p>
       </div>
-    </Form>
+    </form>
   );
 };
 

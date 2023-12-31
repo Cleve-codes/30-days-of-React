@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import {
   createExpense,
   findBudgetById,
@@ -34,10 +34,16 @@ export const action = async ({ request }) => {
   return null;
 };
 
+export function loader() {
+  const expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+  return { expenses };
+}
+
 const BudgetOverviewPage = () => {
   let { id } = useParams();
-  const values = useHomeContext();
-  const [expenses, setExpenses] = useState(values.expenses);
+  const values  = useHomeContext();
+  const loaderData = useLoaderData()
+  const [expenses, setExpenses] = useState(loaderData.expenses);
   const budget = findBudgetById(id);
   const navigate = useNavigate();
   console.log(values);

@@ -1,7 +1,9 @@
-import { Outlet, useLoaderData } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { createBudget, createExpense, fetchData, wait } from "../helpers";
 import Nav from "../components/Nav";
 import { toast } from "react-toastify";
+import { useHomeContext } from "../context/HomeContext";
+;
 
 
 export function Loader() {
@@ -58,13 +60,12 @@ export async function action({ request }) {
 }
 
 const HomePage = () => {
-  const { userName } = useLoaderData();
 
   return (
     <>
       <div className="flex flex-col">
         <div className="text-black ml-[15%] mt-[2em] mr-[5%] min-h-[70vh]">
-          <Nav userName={userName} />
+          <Nav />
           <Outlet />
         </div>
         <div className="home min-h-[30vh]"></div>
