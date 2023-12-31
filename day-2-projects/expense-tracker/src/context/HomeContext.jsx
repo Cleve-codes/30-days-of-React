@@ -28,6 +28,11 @@ const reducer = (state, action) => {
         ...state,
         expenses: [...state.expenses, action.payload],
       };
+    case "LOAD_BUDGETS":
+      return {
+        ...state,
+        budgets: action.payload,
+      };
     default:
       return state;
   }
@@ -41,6 +46,17 @@ function HomeProvider({ children }) {
 
   const addUser = (userName, email) => {
     dispatch({ type: "ADD_USER", payload: { userName, email } });
+
+    // Initilize expenses and budgets in localStorage
+    if (!localStorage.getItem("expenses")) {
+      localStorage.setItem("expenses", JSON.stringify([]));
+    }
+
+    if (!localStorage.getItem("budgets")) {
+      localStorage.setItem("budgets", JSON.stringify([]));
+    }
+
+    localStorage.setItem("userName", JSON.stringify(userName));
   };
 
   const addBudget = (name, amount) => {
@@ -53,6 +69,11 @@ function HomeProvider({ children }) {
     };
 
     dispatch({ type: "ADD_BUDGET", payload: newBudget });
+
+    //Save to local storage
+    const currentBudgets = JSON.parse(localStorage.getItem("budgets")) || [];
+    currentBudgets.push(newBudget);
+    localStorage.setItem("budgets", JSON.stringify(currentBudgets));
   };
 
   const addExpense = (name, amount, budgetId) => {
@@ -68,16 +89,24 @@ function HomeProvider({ children }) {
   };
 
   useEffect(() => {
-    localStorage.setItem("budgets", JSON.stringify(budgets));
+    const savedBudgets = JSON.parse(localStorage.getItem("budgets")) || [];
+    if (
+      savedBudgets &&
+      JSON.stringify(savedBudgets) !== JSON.stringify(budgets)
+    ) {
+      dispatch({ type: "LOAD_BUDGETS", payload: savedBudgets });
+    }
   }, [budgets]);
 
   useEffect(() => {
-    localStorage.setItem("expenses", JSON.stringify(expenses));
+    const savedExpenses = JSON.parse(localStorage.getItem("expenses")) || [];
+    if (
+      savedExpenses &&
+      JSON.stringify(savedExpenses) !== JSON.stringify(expenses)
+    ) {
+      dispatch({ type: "LOAD_EXPENSES", payload: savedExpenses });
+    }
   }, [expenses]);
-
-  useEffect(() => {
-    localStorage.setItem("userName", JSON.stringify(userName));
-  }, []);
 
   return (
     <HomeContext.Provider

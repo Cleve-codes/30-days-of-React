@@ -1,10 +1,7 @@
 // import * as ReactDom from 'react-router-dom'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Main, { action } from "./layouts/Main";
-import HomePage, {
-  Loader as homepageLoader,
-  action as homePageAction,
-} from "./pages/HomePage";
+import HomePage, { action as homePageAction } from "./pages/HomePage";
 import ErrorPage from "./pages/ErrorPage";
 
 // React Toastify
@@ -34,14 +31,12 @@ const router = createBrowserRouter([
     path: "/home",
     element: <HomePage />,
     action: homePageAction,
-    loader: homepageLoader,
     errorElement: <ErrorPage />,
     children: [
       {
         index: true,
         element: <IndexRoute />,
         action: homePageAction,
-        loader: homepageLoader,
         // element: <BudgetCard />,
       },
       {

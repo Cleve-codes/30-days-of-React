@@ -9,7 +9,6 @@ const ExpenseCard = () => {
   const { addBudget, budgets } = useHomeContext();
 
   const budgetsPresent = budgets.length >= 1;
-  console.log(budgets, budgetsPresent);
 
   const formRef = useRef();
   const focusRef = useRef();

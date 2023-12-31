@@ -7,8 +7,9 @@ import PropTypes from "prop-types";
 import { useHomeContext } from "../context/HomeContext";
 
 const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
-  const { budgets, expenses , addExpense }  = useHomeContext() 
+  const { budgets, expenses, addExpense } = useHomeContext();
   // console.log(budgets, expenses, addExpense)
+  console.log(budgets);
   const selectRef = useRef();
   const fetcher = useFetcher();
   const formRef = useRef();
@@ -99,11 +100,14 @@ const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
     setSelectedBudget(selectedOption);
   };
 
-  
+  // const handleSubmit = (e) => {
+
+  // }
+
   return (
     <div className="form-wrapper items-center">
-      <fetcher.Form
-        method="post"
+      <form
+        // method="post"
         ref={formRef}
         className=" bg-gray-200 rounded-xl shadow-xl"
       >
@@ -189,10 +193,9 @@ const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
             className="mb-[1em]"
             text="Add expense 🪙"
             disabled={isSubmitting}
-            
           />
         </div>
-      </fetcher.Form>
+      </form>
     </div>
   );
 };

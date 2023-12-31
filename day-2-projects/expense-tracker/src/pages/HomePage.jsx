@@ -3,14 +3,7 @@ import { createBudget, createExpense, fetchData, wait } from "../helpers";
 import Nav from "../components/Nav";
 import { toast } from "react-toastify";
 import { useHomeContext } from "../context/HomeContext";
-;
 
-
-export function Loader() {
-  const userName = fetchData("userName");
-  const budgets = fetchData("budgets");
-  return { userName, budgets };
-}
 
 export async function action({ request }) {
   const data = await request.formData();

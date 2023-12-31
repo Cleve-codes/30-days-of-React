@@ -13,6 +13,7 @@ const Login = () => {
     const userName = data.get("userName");
     const email = data.get("email");
     addUser(userName, email);
+    
     navigate("/home");
   };
 
