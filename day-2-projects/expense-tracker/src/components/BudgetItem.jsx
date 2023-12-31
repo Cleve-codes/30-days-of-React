@@ -26,15 +26,15 @@ const BudgetItem = ({ budget, showDelete, budgetId }) => {
   }
 
   let spent = getTotalExpensesByBudget(id);
+
+  const handleDeleteBudget = (e) => {
+    e.preventDefault();
+    deleteBudget(id);
+  }
+
   // console.log(budget)
   
   // console.log(budgetId, id);
-
-  const handleDelete = () => {
-    if(showDelete === true) {
-      deleteBudget(id);
-    }
-  };
 
   return (
     <>
@@ -65,7 +65,7 @@ const BudgetItem = ({ budget, showDelete, budgetId }) => {
               text="View Details"
               icon={<HiMiniBanknotes />}
               showDelete={showDelete}
-              onClick={showDelete === true ? handleDelete : undefined}
+              onClick={showDelete ? handleDeleteBudget : null}
             />
           </div>
         </>
