@@ -6,14 +6,19 @@ import {
   formatCurrency,
   formatDateToLocaleString,
 } from "../helpers";
-import { Link, useFetcher } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useHomeContext } from "../context/HomeContext";
 
 const ExpenseItem = ({ expense, showBudgetName }) => {
   const budgetName = findBudgetById(expense.budgetId)?.name;
   const budgdetColor = findBudgetColorById(expense.budgetId);
+  const { deleteExpense } = useHomeContext();
   //   console.log(expense);
 
-  const fetcher = useFetcher();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    deleteExpense(expense.id);
+  };
 
   // const handleDelete = async (e) => {
   //   try {
@@ -41,7 +46,7 @@ const ExpenseItem = ({ expense, showBudgetName }) => {
         </td>
       )}
       <td>
-        <fetcher.Form method="post">
+        <form onSubmit={(e) => handleSubmit(e)}>
           <input type="hidden" name="_action" value="deleteExpense" />
           <input type="hidden" name="expenseId" value={expense.id} />
           <button
@@ -51,7 +56,7 @@ const ExpenseItem = ({ expense, showBudgetName }) => {
           >
             <FaRegTrashAlt className="w-5 h-10 hover:transform hover:scale-200" />
           </button>
-        </fetcher.Form>
+        </form>
       </td>
     </>
   );

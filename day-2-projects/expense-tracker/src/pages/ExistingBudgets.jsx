@@ -1,40 +1,10 @@
-import {
-  redirect,
-  useLoaderData,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import BudgetItem from "../components/BudgetItem";
 import { MdArrowBack } from "react-icons/md";
 import Table from "../components/Table";
 import Button from "../components/Button";
 import { useState } from "react";
 import { useHomeContext } from "../context/HomeContext";
-
-export async function action({ request }) {
-  const data = await request.formData();
-  const { _action, ...values } = Object.fromEntries(data);
-
-  if (_action === "deleteBudget") {
-    try {
-      const remainingBudgets = JSON.parse(
-        localStorage.getItem("budgets")
-      ).filter((budget) => budget.id !== values.id);
-      localStorage.setItem("budgets", JSON.stringify(remainingBudgets));
-
-      // Delete associated expenses
-      const remainingExpenses = JSON.parse(
-        localStorage.getItem("expenses")
-      ).filter((expense) => expense.budgetId !== values.id);
-      localStorage.setItem("expenses", JSON.stringify(remainingExpenses));
-
-      // Redirect to 'home/budgets'
-      redirect("/home/budgets");
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}
 
 const ExistingBudgets = () => {
   const contextData = useHomeContext();

@@ -7,16 +7,14 @@ import PropTypes from "prop-types";
 import { useHomeContext } from "../context/HomeContext";
 
 const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
-  const { budgets, expenses, addExpense } = useHomeContext();
+  const { budgets, addExpense } = useHomeContext();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const selectRef = useRef();
-  
+
   const formRef = useRef();
   const focusRef = useRef();
   const budgetsPresent = localStorage.getItem("budgets").length > 2;
-
-
 
   let selectedOption =
     budget?.name || selectRef.current?.value || (budgets && budgets[0]?.name);
@@ -24,8 +22,6 @@ const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
   const [selectedBudget, setSelectedBudget] = useState(
     selectedOption ? selectedOption : budgets ? [-1].name : null
   );
-
-
 
   // Dynamically set budgetId
   let budgetId = "";
@@ -104,7 +100,7 @@ const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
     setIsSubmitting(true);
     const data = new FormData(e.target);
     try {
-      wait(1000);
+      await wait(2000);
       await addExpense(
         data.get("newExpense"),
         data.get("newExpenseAmount"),
@@ -206,7 +202,7 @@ const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
         <div className="ml-[3em] mt-[2em]">
           <Button
             className="mb-[1em]"
-            text="Add expense 🪙"
+            text={isSubmitting ? "Submitting..." : "Add Expense"}
             disabled={isSubmitting}
           />
         </div>

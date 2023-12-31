@@ -8,10 +8,12 @@ import {
 import PropTypes from "prop-types";
 import { HiMiniBanknotes } from "react-icons/hi2";
 import Button from "./Button";
+import { useHomeContext } from "../context/HomeContext";
 // import { useParams } from "react-router-dom";
 
 const BudgetItem = ({ budget, showDelete, budgetId }) => {
   // let { id, name, amount, color } = budget;
+  const { deleteBudget } = useHomeContext();
 
   if (budget && budgetId === undefined) {
     var { id, name, amount, color } = budget;
@@ -29,9 +31,9 @@ const BudgetItem = ({ budget, showDelete, budgetId }) => {
   // console.log(budgetId, id);
 
   const handleDelete = () => {
-    const remainingExpenses = deleteExpenseByBudgetId(id);
-    // console.log(remainingBudgets)
-    localStorage.setItem("expenses", JSON.stringify(remainingExpenses));
+    if(showDelete === true) {
+      deleteBudget(id);
+    }
   };
 
   return (

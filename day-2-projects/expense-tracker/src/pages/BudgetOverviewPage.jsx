@@ -35,8 +35,7 @@ const BudgetOverviewPage = () => {
   const expenses = values.expenses;
   const budget = findBudgetById(id);
   const navigate = useNavigate();
-  console.log(values);
-
+  
   if (!budget) {
     navigate(-1);
     return null;

@@ -50,7 +50,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         expenses: state.expenses.filter(
-          (expense) => expense.id !== action.payload
+          (expense) => expense.budgetId !== action.payload
         ),
       };
 
@@ -130,6 +130,11 @@ function HomeProvider({ children }) {
     dispatch({ type: "DELETE_BUDGET", payload: id });
     const updatedBudgets = budgets.filter((budget) => budget.id !== id);
     localStorage.setItem("budgets", JSON.stringify(updatedBudgets));
+
+    // Delete all expenses related to the budget
+    dispatch({ type: "DELETE_EXPENSE", payload: id });
+    const updatedExpenses = expenses.filter((expense) => expense.id !== id);
+    localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
   };
 
   const deleteExpense = (id) => {
