@@ -40,6 +40,20 @@ const reducer = (state, action) => {
         expenses: action.payload,
       };
 
+    case "DELETE_BUDGET":
+      return {
+        ...state,
+        budgets: state.budgets.filter((budget) => budget.id !== action.payload),
+      };
+
+    case "DELETE_EXPENSE":
+      return {
+        ...state,
+        expenses: state.expenses.filter(
+          (expense) => expense.id !== action.payload
+        ),
+      };
+
     case "DELETE_USER":
       return {
         initialState,
@@ -92,7 +106,7 @@ function HomeProvider({ children }) {
     const newExpense = {
       id: crypto.randomUUID(),
       name: name,
-      createdAt: new Date().toISOString(),
+      createdAt: new Date(),
       amount: amount,
       budgetId: budgetId,
     };
@@ -110,6 +124,18 @@ function HomeProvider({ children }) {
     localStorage.removeItem("userName");
     localStorage.removeItem("budgets");
     localStorage.removeItem("expenses");
+  };
+
+  const deleteBudget = (id) => {
+    dispatch({ type: "DELETE_BUDGET", payload: id });
+    const updatedBudgets = budgets.filter((budget) => budget.id !== id);
+    localStorage.setItem("budgets", JSON.stringify(updatedBudgets));
+  };
+
+  const deleteExpense = (id) => {
+    dispatch({ type: "DELETE_EXPENSE", payload: id });
+    const updatedExpenses = expenses.filter((expense) => expense.id !== id);
+    localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
   };
 
   useEffect(() => {
@@ -149,6 +175,8 @@ function HomeProvider({ children }) {
         addBudget,
         addExpense,
         deleteUser,
+        deleteBudget,
+        deleteExpense,
       }}
     >
       {children}

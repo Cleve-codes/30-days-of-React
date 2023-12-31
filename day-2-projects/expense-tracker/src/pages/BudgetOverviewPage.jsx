@@ -1,14 +1,9 @@
-import { useLoaderData, useNavigate, useParams } from "react-router-dom";
-import {
-  createExpense,
-  findBudgetById,
-  getExpensesByBudget,
-  wait,
-} from "../helpers";
+import { useNavigate, useParams } from "react-router-dom";
+import { createExpense, findBudgetById, wait } from "../helpers";
 import BudgetItem from "../components/BudgetItem";
 import BudgetCard from "../components/BudgetCard";
 import Table from "../components/Table";
-import { useEffect, useState } from "react";
+
 import { toast } from "react-toastify";
 import { useHomeContext } from "../context/HomeContext";
 
@@ -34,16 +29,10 @@ export const action = async ({ request }) => {
   return null;
 };
 
-export function loader() {
-  const expenses = JSON.parse(localStorage.getItem("expenses")) || [];
-  return { expenses };
-}
-
 const BudgetOverviewPage = () => {
   let { id } = useParams();
-  const values  = useHomeContext();
-  const loaderData = useLoaderData()
-  const [expenses, setExpenses] = useState(loaderData.expenses);
+  const values = useHomeContext();
+  const expenses = values.expenses;
   const budget = findBudgetById(id);
   const navigate = useNavigate();
   console.log(values);
@@ -57,15 +46,11 @@ const BudgetOverviewPage = () => {
   const showBudgetName = id === undefined;
   // console.log(showBudgetName, budgetId)
 
-  const handleDelete = (id) => {
-    const updatedExpenses = expenses.filter((expense) => expense.id !== id);
-    setExpenses(updatedExpenses);
-    localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
-  };
-
-  useEffect(() => {
-    setExpenses(getExpensesByBudget(id));
-  }, [id]);
+  // const handleDelete = (id) => {
+  //   const updatedExpenses = expenses.filter((expense) => expense.id !== id);
+  //   setExpenses(updatedExpenses);
+  //   localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+  // };
 
   return (
     <section>
@@ -106,13 +91,7 @@ const BudgetOverviewPage = () => {
           </small>
         </h1>
         <div className="grid-md">
-          <Table
-            expenses={expenses
-              .filter((expense) => expense.budgetId === id)
-              .sort((a, b) => b.createdAt - a.createdAt)}
-            showBudgetName={showBudgetName}
-            onDelete={handleDelete}
-          />
+          <Table showBudgetName={showBudgetName} />
         </div>
       </div>
       <div className="mt-[1em]">

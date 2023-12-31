@@ -41,7 +41,6 @@ const ExistingBudgets = () => {
   const { userName, budgets } = contextData;
   const [expenses, setExpenses] = useState(contextData.expenses);
   const navigate = useNavigate();
-  console.log(contextData);
 
   const { id } = useParams();
   const showDelete = id !== undefined;
@@ -79,9 +78,9 @@ const ExistingBudgets = () => {
         <div className="grid-md">
           <h1 className="text-[50px] my-4">Recent Expenses</h1>
           <Table
-            expenses={expenses
-              .sort((a, b) => b.createdAt - a.createdAt)
-              .slice(0, 7)}
+            // expenses={expenses
+            //   .sort((a, b) => a.createdAt - b.createdAt)
+            //   .slice(0, 7)}
             showBudgetName={showBudgetName}
             onDelete={handleDelete}
           />

@@ -1,12 +1,27 @@
 import PropTypes from "prop-types";
 import ExpenseItem from "./ExpenseItem";
+import { useHomeContext } from "../context/HomeContext";
+import { useParams } from "react-router-dom";
+import { getExpensesByBudget } from "../helpers";
 
-const Table = ({ expenses, onDelete, showBudgetName }) => {
+const Table = ({ showBudgetName }) => {
   // const [expenses, setExpenses] = useState(initialExpenses);
+  const contextData = useHomeContext();
+  const { id } = useParams();
+  const expenses = contextData.expenses.sort((a, b) => {
+    a.createdAt - b.createdAt;
+  });
+  let fetchedExpenses = [];
+  // console.log(expenses)
 
   const headers = ["Name", "Amount", "Date", ""];
   if (showBudgetName) {
     headers.splice(3, 0, "Budget");
+  }
+
+  if (id !== undefined) {
+    fetchedExpenses = getExpensesByBudget(id);
+    console.log(fetchedExpenses);
   }
 
   // useEffect(() => {
@@ -14,10 +29,9 @@ const Table = ({ expenses, onDelete, showBudgetName }) => {
   //   console.log(initialExpenses);
   // }, [initialExpenses]);
 
-  const handleDelete = (id) => {
-    onDelete(id)
-  }
- 
+  // const handleDelete = (id) => {
+  //   onDelete(id);
+  // };
 
   return (
     <div className="table">
@@ -32,12 +46,22 @@ const Table = ({ expenses, onDelete, showBudgetName }) => {
           </tr>
         </thead>
         <tbody>
-          {expenses.map((expense) => (
+          {id !== undefined ? fetchedExpenses.map((expense) => (
             <tr className="text-[20px]" key={expense.id}>
               <ExpenseItem
                 expense={expense}
                 showBudgetName={showBudgetName}
-                onDelete={handleDelete}
+                // onDelete={handleDelete}
+              />
+            </tr>
+          )) 
+          :
+          expenses.map((expense) => (
+            <tr className="text-[20px]" key={expense.id}>
+              <ExpenseItem
+                expense={expense}
+                showBudgetName={showBudgetName}
+                // onDelete={handleDelete}
               />
             </tr>
           ))}

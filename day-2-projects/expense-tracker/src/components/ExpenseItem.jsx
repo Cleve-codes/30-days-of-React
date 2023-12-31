@@ -8,7 +8,7 @@ import {
 } from "../helpers";
 import { Link, useFetcher } from "react-router-dom";
 
-const ExpenseItem = ({ expense, showBudgetName, onDelete }) => {
+const ExpenseItem = ({ expense, showBudgetName }) => {
   const budgetName = findBudgetById(expense.budgetId)?.name;
   const budgdetColor = findBudgetColorById(expense.budgetId);
   //   console.log(expense);
@@ -41,7 +41,7 @@ const ExpenseItem = ({ expense, showBudgetName, onDelete }) => {
         </td>
       )}
       <td>
-        <fetcher.Form method="post" onClick={() => onDelete(expense.id)}>
+        <fetcher.Form method="post">
           <input type="hidden" name="_action" value="deleteExpense" />
           <input type="hidden" name="expenseId" value={expense.id} />
           <button

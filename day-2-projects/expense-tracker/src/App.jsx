@@ -9,10 +9,12 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import IndexRoute from "./pages/IndexRoute";
 import ExistingBudgets from "./pages/ExistingBudgets";
-import ExpensesPage, { action as expensesAction, loader as expensesLoader } from "./pages/ExpensesPage";
+import ExpensesPage, {
+  action as expensesAction,
+  loader as expensesLoader,
+} from "./pages/ExpensesPage";
 import BudgetOverviewPage, {
   action as budgetsAction,
-  loader as budgetsLoader,
 } from "./pages/BudgetOverviewPage";
 import { HomeProvider } from "./context/HomeContext";
 // import BudgetCard from "./components/BudgetCard";
@@ -52,7 +54,6 @@ const router = createBrowserRouter([
         path: ":id",
         element: <BudgetOverviewPage />,
         action: budgetsAction,
-        loader: budgetsLoader,
         errorElement: <ErrorPage />,
       },
     ],
