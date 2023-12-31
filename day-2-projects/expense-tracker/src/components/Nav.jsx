@@ -13,7 +13,7 @@ const Nav = () => {
       return;
     }
     deleteUser();
-    navigate("/home");
+    navigate("/");
   };
 
   return (
@@ -37,7 +37,7 @@ const Nav = () => {
           </p>
           <FaRegTrashAlt className="text-red-500" />
         </button>
-        <input type="hidden" name="_action" value="deleteUser"></input>
+        
       </form>
     </nav>
   );

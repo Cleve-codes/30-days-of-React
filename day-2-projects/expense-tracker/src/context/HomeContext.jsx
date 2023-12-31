@@ -97,19 +97,19 @@ function HomeProvider({ children }) {
       budgetId: budgetId,
     };
 
-    const deleteUser = () => {
-      dispatch({ type: "DELETE_USER" });
-      localStorage.removeItem("userName");
-      localStorage.removeItem("budgets");
-      localStorage.removeItem("expenses");
-    };
-
     dispatch({ type: "ADD_EXPENSE", payload: newExpense });
 
     //Save to local storage
     const currentExpenses = JSON.parse(localStorage.getItem("expenses")) || [];
     currentExpenses.push(newExpense);
     localStorage.setItem("expenses", JSON.stringify(currentExpenses));
+  };
+
+  const deleteUser = () => {
+    dispatch({ type: "DELETE_USER" });
+    localStorage.removeItem("userName");
+    localStorage.removeItem("budgets");
+    localStorage.removeItem("expenses");
   };
 
   useEffect(() => {

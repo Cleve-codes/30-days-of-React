@@ -3,10 +3,7 @@ import BudgetCard from "../components/BudgetCard";
 import { useHomeContext } from "../context/HomeContext";
 
 const IndexRoute = () => {
-  const { userName, budgets, expenses } = useHomeContext();
-  // const userName = user?.userName;
-  // console.log("userName:",userName ,"Budgets:", budgets);
-  console.log(userName, budgets, expenses)
+  const { userName, budgets } = useHomeContext();
 
   return (
     <>
