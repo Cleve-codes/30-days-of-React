@@ -8,11 +8,8 @@ import ErrorPage from "./pages/ErrorPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import IndexRoute from "./pages/IndexRoute";
-import ExistingBudgets, { loader } from "./pages/ExistingBudgets";
-import ExpensesPage, {
-  action as expensesAction,
-  loader as expensesLoader,
-} from "./pages/ExpensesPage";
+import ExistingBudgets from "./pages/ExistingBudgets";
+import ExpensesPage, { action as expensesAction, loader as expensesLoader } from "./pages/ExpensesPage";
 import BudgetOverviewPage, {
   action as budgetsAction,
   loader as budgetsLoader,
@@ -42,7 +39,6 @@ const router = createBrowserRouter([
       {
         path: "budgets",
         element: <ExistingBudgets />,
-        loader: loader,
         action: expensesAction,
         errorElement: <ErrorPage />,
       },

@@ -8,17 +8,16 @@ import { useHomeContext } from "../context/HomeContext";
 
 const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
   const { budgets, expenses, addExpense } = useHomeContext();
-  // console.log(budgets, expenses, addExpense)
-  console.log(budgets);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const selectRef = useRef();
-  const fetcher = useFetcher();
+  
   const formRef = useRef();
   const focusRef = useRef();
   const budgetsPresent = localStorage.getItem("budgets").length > 2;
 
-  // console.log(budgetsPresent, budgets)
 
-  const isSubmitting = fetcher.state === "submitting";
+
   let selectedOption =
     budget?.name || selectRef.current?.value || (budgets && budgets[0]?.name);
 
@@ -26,7 +25,7 @@ const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
     selectedOption ? selectedOption : budgets ? [-1].name : null
   );
 
-  // console.log(selectedOption)
+
 
   // Dynamically set budgetId
   let budgetId = "";
@@ -100,9 +99,24 @@ const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
     setSelectedBudget(selectedOption);
   };
 
-  // const handleSubmit = (e) => {
-
-  // }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    const data = new FormData(e.target);
+    try {
+      wait(1000);
+      await addExpense(
+        data.get("newExpense"),
+        data.get("newExpenseAmount"),
+        budgetId
+      );
+      return toast.success(`${data.get("newExpense")} added as an expense`);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="form-wrapper items-center">
@@ -110,6 +124,7 @@ const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
         // method="post"
         ref={formRef}
         className=" bg-gray-200 rounded-xl shadow-xl"
+        onSubmit={handleSubmit}
       >
         <h1 className="font-semibold text-[25px] ml-[1em] mt-[.25em] sm:ml-[2em]">
           Add New{" "}

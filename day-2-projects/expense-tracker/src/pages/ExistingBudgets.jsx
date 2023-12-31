@@ -9,14 +9,8 @@ import { MdArrowBack } from "react-icons/md";
 import Table from "../components/Table";
 import Button from "../components/Button";
 import { useState } from "react";
-// import { fetchData } from "../helpers";
+import { useHomeContext } from "../context/HomeContext";
 
-export async function loader() {
-  const userName = JSON.parse(localStorage.getItem("userName"));
-  const budgets = JSON.parse(localStorage.getItem("budgets")) ?? [];
-  const expenses = JSON.parse(localStorage.getItem("expenses")) ?? [];
-  return { userName, budgets, expenses };
-}
 
 export async function action({ request }) {
   const data = await request.formData();
@@ -44,10 +38,11 @@ export async function action({ request }) {
 }
 
 const ExistingBudgets = () => {
-  const loaderData = useLoaderData();
-  const { userName, budgets } = loaderData;
-  const [expenses, setExpenses] = useState(loaderData.expenses);
+  const contextData = useHomeContext()
+  const { userName, budgets } = contextData
+  const [expenses, setExpenses] = useState(contextData.expenses);
   const navigate = useNavigate();
+  console.log(contextData)
 
   const { id } = useParams();
   const showDelete = id !== undefined;
@@ -87,7 +82,7 @@ const ExistingBudgets = () => {
           <h1 className="text-[50px] my-4">Recent Expenses</h1>
           <Table
             expenses={expenses
-              .sort((a, b) => b.createdAt - a.createdAt)
+              .sort((a, b) => a.createdAt - b.createdAt)
               .slice(0, 7)}
             showBudgetName={showBudgetName}
             onDelete={handleDelete}

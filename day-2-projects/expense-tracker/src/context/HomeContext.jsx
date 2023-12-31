@@ -86,7 +86,19 @@ function HomeProvider({ children }) {
     };
 
     dispatch({ type: "ADD_EXPENSE", payload: newExpense });
+
+    //Save to local storage
+    const currentExpenses = JSON.parse(localStorage.getItem("expenses")) || [];
+    currentExpenses.push(newExpense);
+    localStorage.setItem("expenses", JSON.stringify(currentExpenses));
   };
+
+  useEffect(() => {
+    const savedUserName = JSON.parse(localStorage.getItem("userName")) || "";
+    if (savedUserName && savedUserName !== userName) {
+      dispatch({ type: "ADD_USER", payload: { userName: savedUserName } });
+    }
+  }, [userName]);
 
   useEffect(() => {
     const savedBudgets = JSON.parse(localStorage.getItem("budgets")) || [];
