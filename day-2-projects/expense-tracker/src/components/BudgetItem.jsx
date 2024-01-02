@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 import { HiMiniBanknotes } from "react-icons/hi2";
 import Button from "./Button";
 import { useHomeContext } from "../context/HomeContext";
+import { redirect } from "react-router-dom";
 // import { useParams } from "react-router-dom";
 
 const BudgetItem = ({ budget, showDelete, budgetId }) => {
@@ -26,14 +27,18 @@ const BudgetItem = ({ budget, showDelete, budgetId }) => {
   }
 
   let spent = getTotalExpensesByBudget(id);
+  console.log(spent);
 
   const handleDeleteBudget = (e) => {
     e.preventDefault();
-    deleteBudget(id);
-  }
+    if (confirm("Are you sure you want to delete this budget?")) {
+      deleteBudget(id);
+      redirect("/home/budgets");
+    }
+  };
 
   // console.log(budget)
-  
+
   // console.log(budgetId, id);
 
   return (

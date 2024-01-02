@@ -29,7 +29,7 @@ export const getExpensesByBudget = (budgetId) => {
 // Total Expense spent by budget
 export const getTotalExpensesByBudget = (budgetId) => {
   const expenses = getExpensesByBudget(budgetId);
-  const total = expenses.reduce((acc, expense) => acc + expense.amount, 0);
+  const total = expenses.reduce((acc, expense) => acc + parseFloat(expense.amount), 0);
   return total;
 };
 

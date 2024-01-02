@@ -20,14 +20,6 @@ const ExpenseItem = ({ expense, showBudgetName }) => {
     deleteExpense(expense.id);
   };
 
-  // const handleDelete = async (e) => {
-  //   try {
-  //     e.preventDefault();
-  //     onDelete(expense.id);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   return (
     <>

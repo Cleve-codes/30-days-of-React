@@ -133,7 +133,9 @@ function HomeProvider({ children }) {
 
     // Delete all expenses related to the budget
     dispatch({ type: "DELETE_EXPENSE", payload: id });
-    const updatedExpenses = expenses.filter((expense) => expense.id !== id);
+    const updatedExpenses = expenses.filter(
+      (expense) => expense.budgetId !== id
+    );
     localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
   };
 

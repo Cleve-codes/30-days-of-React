@@ -21,17 +21,7 @@ const Table = ({ showBudgetName }) => {
 
   if (id !== undefined) {
     fetchedExpenses = getExpensesByBudget(id);
-    console.log(fetchedExpenses);
   }
-
-  // useEffect(() => {
-  //   // setExpenses(initialExpenses);
-  //   console.log(initialExpenses);
-  // }, [initialExpenses]);
-
-  // const handleDelete = (id) => {
-  //   onDelete(id);
-  // };
 
   return (
     <div className="table">
@@ -46,25 +36,25 @@ const Table = ({ showBudgetName }) => {
           </tr>
         </thead>
         <tbody>
-          {id !== undefined ? fetchedExpenses.map((expense) => (
-            <tr className="text-[20px]" key={expense.id}>
-              <ExpenseItem
-                expense={expense}
-                showBudgetName={showBudgetName}
-                // onDelete={handleDelete}
-              />
-            </tr>
-          )) 
-          :
-          expenses.map((expense) => (
-            <tr className="text-[20px]" key={expense.id}>
-              <ExpenseItem
-                expense={expense}
-                showBudgetName={showBudgetName}
-                // onDelete={handleDelete}
-              />
-            </tr>
-          ))}
+          {id !== undefined
+            ? fetchedExpenses.map((expense) => (
+                <tr className="text-[20px]" key={expense.id}>
+                  <ExpenseItem
+                    expense={expense}
+                    showBudgetName={showBudgetName}
+                    // onDelete={handleDelete}
+                  />
+                </tr>
+              ))
+            : expenses.map((expense) => (
+                <tr className="text-[20px]" key={expense.id}>
+                  <ExpenseItem
+                    expense={expense}
+                    showBudgetName={showBudgetName}
+                    // onDelete={handleDelete}
+                  />
+                </tr>
+              ))}
         </tbody>
       </table>
     </div>
