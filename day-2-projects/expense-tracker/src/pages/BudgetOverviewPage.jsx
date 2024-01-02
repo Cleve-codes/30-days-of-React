@@ -36,7 +36,7 @@ const BudgetOverviewPage = () => {
           </span>
           &nbsp;Overview
         </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-start sm:gap-[.5em] lg:gap-0">
           <>
             <BudgetItem budget={budget} showDelete={showDelete} budgetId={id} />
           </>

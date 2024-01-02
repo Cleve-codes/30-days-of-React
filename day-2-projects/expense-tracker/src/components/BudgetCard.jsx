@@ -119,10 +119,12 @@ const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
       <form
         // method="post"
         ref={formRef}
-        className=" bg-gray-200 rounded-xl shadow-xl"
         onSubmit={handleSubmit}
+        className={`bg-gray-300 rounded-xl shadow-2xl w-full lg:max-w-[600px] md:max-w-[500px] sm:max-w-[400px] xs:max-w-[300px] lg:p-2 xs:p-2 sm:p-4 ${
+          showBudgetCategory ? "lg:min-w-[600px]" : "lg:min-w-[400px]"
+        } md:min-w-[400px] sm:min-w-[400px] xs:min-w-[250px]`}
       >
-        <h1 className="font-semibold text-[25px] ml-[1em] mt-[.25em] sm:ml-[2em]">
+        <h1 className="font-semibold text-[25px] mx-[1em] mt-[.25em] sm:ml-[2em]">
           Add New{" "}
           <span>
             {budget
@@ -133,7 +135,7 @@ const BudgetCard = ({ showBudgetCategory = true, budget, id }) => {
           </span>{" "}
           Expense.
         </h1>
-        <div className="flex flex-col lg:flex-row lg:items-center justify-center mt-[2%]">
+        <div className="flex flex-col lg:flex-row  justify-center mt-[2%]">
           <div className="flex flex-col mx-[2em] sm:ml-[2em]  gap-[.5em] ">
             <label
               className="font-semibold text-[20px] text-gray-700"

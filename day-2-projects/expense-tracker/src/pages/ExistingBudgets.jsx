@@ -1,5 +1,5 @@
 // React Router && React libs
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
 
@@ -14,7 +14,7 @@ import { useHomeContext } from "../context/HomeContext";
 const ExistingBudgets = () => {
   const contextData = useHomeContext();
   const { userName, budgets } = contextData;
-  const [expenses, setExpenses] = useState(contextData.expenses);
+  const expenses = contextData.expenses;
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -27,11 +27,6 @@ const ExistingBudgets = () => {
     }
   }, [budgets, navigate]);
 
-  const handleDelete = (id) => {
-    const updatedExpenses = expenses.filter((expense) => expense.id !== id);
-    setExpenses(updatedExpenses);
-    localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
-  };
 
   return (
     <section className="mt-[2%]">
@@ -52,9 +47,9 @@ const ExistingBudgets = () => {
       <input type="hidden" name="_action" value="deleteExpense" />
       <input type="hidden" name="id" value={id} />
       {expenses && expenses.length > 0 ? (
-        <div className="grid-md">
+        <div className="grid-md md:grid-sm xs:grid-xs">
           <h1 className="text-[50px] my-4">Recent Expenses</h1>
-          <Table showBudgetName={showBudgetName} onDelete={handleDelete} />
+          <Table showBudgetName={showBudgetName} />
         </div>
       ) : null}
       <div className="mt-[2em] flex justify-between">

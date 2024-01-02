@@ -16,7 +16,7 @@ const IndexRoute = () => {
         </h1>
         {budgets.length === 0 && (
           <div className="mt-[1.5em]">
-            <p className="text-[22px] leading-[.5em]">
+            <p className="text-[22px] leading-[.5em] xs:leading-[1em]">
               Personal budgeting is the secret to financial freedom.
             </p>
             <p className="text-[22px] leading-[3em]">

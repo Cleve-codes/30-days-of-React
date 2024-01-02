@@ -1,6 +1,11 @@
-import { Form, useNavigate } from "react-router-dom";
+// React Router && React libs
+import { useNavigate } from "react-router-dom";
 import { FaRegTrashAlt } from "react-icons/fa";
+
+// Assets
 import Logo from "../assets/logomark.svg";
+
+// Context
 import { useHomeContext } from "../context/HomeContext";
 
 const Nav = () => {

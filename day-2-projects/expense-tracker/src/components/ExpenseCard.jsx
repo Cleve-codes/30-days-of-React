@@ -38,17 +38,16 @@ const ExpenseCard = () => {
   return (
     <div className="form-wrapper">
       <form
-        method="post"
         ref={formRef}
         name="newBudget"
         id="newBudget"
-        className="bg-gray-300 rounded-xl shadow-2xl lg:p-2 sm:p-4 min-w-[3/4]"
+        className="bg-gray-300 rounded-xl shadow-2xl lg:p-2 xs:p-2 sm:p-4 lg:min-w-[600px] sm:min-w-[400px] xs:min-w-[250px]"
         onSubmit={handleSubmit}
       >
-        <h1 className="font-semibold text-[25px] ml-0 sm:ml-[2em] xs:text-center xs:mt-[.25em]">
+        <h1 className="font-semibold text-[25px] lg:text-start ml-0 sm:ml-[2em] xs:text-center xs:mt-[.25em]">
           Create a budget
         </h1>
-        <div className="flex flex-col ml-[2em] mt-[2em] gap-[.5em] ">
+        <div className="flex flex-col mx-[1em] sm:mx-[2em] mt-[2em] gap-[.5em] ">
           <label
             className="font-semibold text-[20px] text-gray-700"
             id="budgetName"
@@ -57,7 +56,7 @@ const ExpenseCard = () => {
             Budget Name
           </label>
           <input
-            className="h-[3.5em] w-4/6 rounded-lg outline-button p-5"
+            className="rounded-lg outline-button px-8 py-4"
             type="text"
             name="budget"
             autoComplete="on"
@@ -66,7 +65,7 @@ const ExpenseCard = () => {
             required
           ></input>
         </div>
-        <div className="flex flex-col ml-[2em] gap-[.5em]">
+        <div className="flex flex-col mx-[1em] sm:mx-[2em] gap-[.5em]">
           <label
             className="font-semibold text-[20px] text-gray-700"
             htmlFor="budgetAmount"
@@ -75,7 +74,7 @@ const ExpenseCard = () => {
             Amount
           </label>
           <input
-            className="h-[3.5em] w-4/6 rounded-sm outline-button p-5"
+            className=" outline-button px-8 py-4 rounded-lg"
             type="number"
             step={0.01}
             name="budgetAmount"
@@ -87,7 +86,7 @@ const ExpenseCard = () => {
           ></input>
           <input type="hidden" name="_action" value="addBudget" />
         </div>
-        <div className="flex flex-col lg:flex-row sm:gap-8 gap-2 ">
+        <div className="flex flex-row lg:flex-row sm:gap-2 sm:flex-col gap-2 ">
           <div className="sm:mt-[2em] sm:mx-[2em] xs:mx-[2em] ml-0 mt-[2em]">
             {/* <Button className="px-8 py-4" text="Create Budget 🪙" disabled={isSubmitting} /> */}
             <button
@@ -105,10 +104,10 @@ const ExpenseCard = () => {
           {budgetsPresent && (
             <div className="mt-0 lg:mt-[2em]">
               <Link
-                className="cursor-pointer group relative flex gap-1.5 
+                className="cursor-pointer group relative flex gap-1.5
                 px-8 py-4 bg-black bg-opacity-80 text-[#f1f1f1] 
                 rounded-2xl hover:bg-opacity-70 
-                transition font-semibold shadow-md sm:mx-[2em] xs:mx-[2em] xs:mb-[1em]"
+                transition font-semibold shadow-md lg:my-0 xs:mx-[2em]  xs:my-[2.5em] "
                 to="/home/budgets"
               >
                 View <span className="text-white xs:hidden">Existing</span>{" "}
