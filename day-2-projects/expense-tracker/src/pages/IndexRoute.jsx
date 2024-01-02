@@ -1,5 +1,8 @@
+// Components
 import ExpenseCard from "../components/ExpenseCard";
 import BudgetCard from "../components/BudgetCard";
+
+// Context
 import { useHomeContext } from "../context/HomeContext";
 
 const IndexRoute = () => {

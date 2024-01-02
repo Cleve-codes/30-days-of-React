@@ -1,47 +1,24 @@
-import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
+// React Router
+import { Link, useNavigate, useParams } from "react-router-dom";
+
+// Components
 import Button from "../components/Button";
 import Table from "../components/Table";
-import { toast } from "react-toastify";
-import { deleteExpenseByBudgetId } from "../helpers";
-import { useState } from "react";
 
-export async function loader() {
-  const expenses = JSON.parse(localStorage.getItem("expenses"));
-  return { expenses };
-}
-
-export async function action({ request }) {
-  const data = await request.formData();
-  const { _action, ...values } = Object.fromEntries(data);
-
-  if (_action === "deleteExpense") {
-    try {
-      deleteExpenseByBudgetId(values.budgetId);
-      console.log(_action, values);
-      return true;
-    } catch (error) {
-      return toast.error(error?.message);
-    }
-  }
-  return null;
-}
-
+// Context
+import { useHomeContext } from "../context/HomeContext";
 
 const ExpensesPage = () => {
   const navigate = useNavigate();
-  const loaderData = useLoaderData()
-  const [expenses, setExpenses] = useState(loaderData.expenses);
+  const contextData = useHomeContext()
+  const expenses = contextData.expenses;
   const { id } = useParams();
 
   const showBudgetName = id == undefined;
-  // console.log(id, showBudgetName)
 
-
-  const handleDelete = (id) => {
-    const updatedExpenses = expenses.filter((expense) => expense.id !== id);
-    setExpenses(updatedExpenses);
-    localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
-  };
+  if(expenses.length === 0) {
+    return navigate(-1)
+  }
 
   return (
     <>
@@ -53,7 +30,7 @@ const ExpensesPage = () => {
               <h2 className="text-[30px] font-semibold">
                 Recent Expense <small>({expenses.length} total)</small>
               </h2>
-              <Table expenses={expenses} onDelete={handleDelete} showBudgetName={showBudgetName} />
+              <Table showBudgetName={showBudgetName} />
             </div>
 
             <div>

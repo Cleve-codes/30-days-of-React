@@ -1,9 +1,14 @@
+// React Router && React libs
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import BudgetItem from "../components/BudgetItem";
 import { MdArrowBack } from "react-icons/md";
+
+// Components
 import Table from "../components/Table";
 import Button from "../components/Button";
-import { useState } from "react";
+import BudgetItem from "../components/BudgetItem";
+
+// Context
 import { useHomeContext } from "../context/HomeContext";
 
 const ExistingBudgets = () => {
@@ -16,9 +21,11 @@ const ExistingBudgets = () => {
   const showDelete = id !== undefined;
   const showBudgetName = id === undefined;
 
-  if (budgets === undefined) {
-    return navigate(-1);
-  }
+  useEffect(() => {
+    if (budgets.length === 0) {
+      navigate("/home");
+    }
+  }, [budgets, navigate]);
 
   const handleDelete = (id) => {
     const updatedExpenses = expenses.filter((expense) => expense.id !== id);
@@ -47,13 +54,7 @@ const ExistingBudgets = () => {
       {expenses && expenses.length > 0 ? (
         <div className="grid-md">
           <h1 className="text-[50px] my-4">Recent Expenses</h1>
-          <Table
-            // expenses={expenses
-            //   .sort((a, b) => a.createdAt - b.createdAt)
-            //   .slice(0, 7)}
-            showBudgetName={showBudgetName}
-            onDelete={handleDelete}
-          />
+          <Table showBudgetName={showBudgetName} onDelete={handleDelete} />
         </div>
       ) : null}
       <div className="mt-[2em] flex justify-between">

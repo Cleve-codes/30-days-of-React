@@ -37,15 +37,17 @@ const Table = ({ showBudgetName }) => {
         </thead>
         <tbody>
           {id !== undefined
-            ? fetchedExpenses.map((expense) => (
-                <tr className="text-[20px]" key={expense.id}>
-                  <ExpenseItem
-                    expense={expense}
-                    showBudgetName={showBudgetName}
-                    // onDelete={handleDelete}
-                  />
-                </tr>
-              ))
+            ? fetchedExpenses
+                .sort((a, b) => a.createdAt - b.createdAt)
+                .map((expense) => (
+                  <tr className="text-[20px]" key={expense.id}>
+                    <ExpenseItem
+                      expense={expense}
+                      showBudgetName={showBudgetName}
+                      // onDelete={handleDelete}
+                    />
+                  </tr>
+                ))
             : expenses.map((expense) => (
                 <tr className="text-[20px]" key={expense.id}>
                   <ExpenseItem

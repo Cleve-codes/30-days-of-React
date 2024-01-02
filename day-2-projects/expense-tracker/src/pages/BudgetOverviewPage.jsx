@@ -1,33 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { createExpense, findBudgetById, wait } from "../helpers";
+import { findBudgetById } from "../helpers";
 import BudgetItem from "../components/BudgetItem";
 import BudgetCard from "../components/BudgetCard";
 import Table from "../components/Table";
 
-import { toast } from "react-toastify";
 import { useHomeContext } from "../context/HomeContext";
-
-export const action = async ({ request }) => {
-  const data = await request.formData();
-  const { _action, ...values } = Object.fromEntries(data);
-
-  if (_action === "addExpense") {
-    await wait(1000);
-    try {
-      createExpense({
-        name: values.newExpense,
-        amount: values.newExpenseAmount,
-        budgetId: values.budgetId,
-      });
-      console.log(_action, values);
-      return toast.success(`${values.newExpense} added as an expense`);
-    } catch (error) {
-      return toast.error(error?.message);
-      // return console.log(error?.message);
-    }
-  }
-  return null;
-};
+import { useEffect } from "react";
 
 const BudgetOverviewPage = () => {
   let { id } = useParams();
@@ -35,21 +13,15 @@ const BudgetOverviewPage = () => {
   const expenses = values.expenses;
   const budget = findBudgetById(id);
   const navigate = useNavigate();
-  
-  if (!budget) {
-    navigate(-1);
-    return null;
-  }
+
+  useEffect(() => {
+    if (!budget) {
+      navigate("/home/budgets");
+    }
+  }, [budget, navigate]);
 
   const showDelete = id !== undefined;
   const showBudgetName = id === undefined;
-  // console.log(showBudgetName, budgetId)
-
-  // const handleDelete = (id) => {
-  //   const updatedExpenses = expenses.filter((expense) => expense.id !== id);
-  //   setExpenses(updatedExpenses);
-  //   localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
-  // };
 
   return (
     <section>

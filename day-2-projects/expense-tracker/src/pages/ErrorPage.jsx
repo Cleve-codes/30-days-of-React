@@ -1,7 +1,11 @@
-import errorImg from "../assets/error-400.jpg";
-
+// React Router
 import { useNavigate, useRouteError } from "react-router-dom";
+
+// Components
 import Button from "../components/Button";
+
+// ErrorImage
+import errorImg from "../assets/error-400.jpg";
 
 const ErrorPage = () => {
   const error = useRouteError();
